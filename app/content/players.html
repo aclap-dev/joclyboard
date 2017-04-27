@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="players.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="window window-gray">
+
+		<div class="window-content">
+
+			<div class="players-container">
+				<div>
+					<div>
+						<h4>Player A</h4>
+					</div>
+					<div>
+						<h4>Player B</h4>
+					</div>
+				</div>
+				<div>
+					<div>
+						<form class="players-a">
+							<select class="form-control">
+							</select>
+							<br/><br/>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Player name">
+							</div>
+						</form>
+					</div>
+					<div>
+						<form class="players-b">
+							<select class="form-control">
+							</select>
+							<br/><br/>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Player name">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="toolbar toolbar-footer">
+			<div class="toolbar-actions">
+				<button id="button-cancel" class="btn btn-default">Cancel</button>
+				<button id="button-save" class="btn btn-primary pull-right">Save</button>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>

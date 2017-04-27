@@ -1,0 +1,95 @@
+
+.jocly-pjn {
+}
+
+.jocly-pjn-selector {
+	margin-bottom: .5em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.jocly-pjn-selector option {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+	width: 100%;
+}
+
+.jocly-pjn-tags {
+}
+
+.jocly-pjn-tag {
+	margin-left: 1em;
+	display: block;
+}
+
+.jocly-pjn-tag-name {
+	color: #808080;
+}
+
+.jocly-pjn-tag-sep {
+	margin-left: .2em;
+	margin-right: .2em;
+	color: #808080;
+}
+
+.jocly-pjn-tag-value {
+	font-style: italic;
+	display: inline-block;
+	word-break: break-all; 
+}
+
+.jocly-pjn-toggler {
+	cursor: pointer;
+	background-color: #f0f0f0;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	margin-left: .1em;
+	margin-right: .1em;
+	padding-left: .1em;
+	padding-right: .1em;
+}
+
+.jocly-pjn-moves {
+}
+
+.jocly-pjn-move {
+	margin-left: .2em;
+	margin-right: .2em;
+	font-weight: bold;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.jocly-pjn-move-number {
+	margin-left: .2em;
+	margin-right: .1em;
+}
+
+.jocly-pjn-comment {
+	color: #8080ff;
+	font-style: italic;
+}
+
+.jocly-pjn-variation-1 {
+	color: Green;
+}
+
+.jocly-pjn-variation-2 {
+	color: Orange;
+}
+
+.jocly-pjn-variation-3 {
+	color: Brown;
+}
+
+.jocly-pjn-current-move {
+	background-color: #80ff80;
+}
+
+.jocly-pjn-pending-move {
+	background-color: #ffff80;
+}
+

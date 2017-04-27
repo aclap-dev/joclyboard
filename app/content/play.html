@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html style="height:100%">
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="play.js" charset="utf-8"></script>
+</head>
+
+<body style="height:100%">
+	<div class="game-zone .play-content">
+		<div class="game-fullsize">
+			<div>
+				<div>
+					<div class="game-area"></div>
+				</div>
+			</div>
+		</div>
+		<div class="game-footer">
+			<div>
+				<footer class="toolbar toolbar-footer">
+					<div class="toolbar-actions">
+						<h1 id="board-footer-text" class="pull-left title"></h1>
+						<div class="btn-group pull-right">
+							<button id="button-players" class="btn btn-default" title="Players">
+								<span class="icon icon-users"></span>
+							</button>
+							<button id="button-options" class="btn btn-default" title="View options">
+								<span class="icon icon-eye"></span>
+							</button>
+							<button id="button-takeback" class="btn btn-default" title="Take back">
+								<span class="icon icon-back"></span>
+							</button>
+							<button id="button-restart" class="btn btn-default" title="Restart">
+								<span class="icon icon-ccw"></span>
+							</button>
+							<button id="button-history" class="btn btn-default" title="History">
+								<span class="icon icon-list"></span>
+							</button>
+							<button id="button-clock" class="btn btn-default" title="Clock">
+								<span class="icon icon-clock"></span>
+							</button>
+							<button id="button-replay" class="btn btn-default" title="Replay last move">
+								<span class="icon icon-level-down"></span>
+							</button>
+							<button id="button-pause" class="btn btn-default" title="Pause">
+								<span class="icon icon-pause"></span>
+							</button>
+							<button id="button-resume" class="btn btn-default hidden" title="Resume">
+								<span class="icon icon-play"></span>
+							</button>
+							<button id="button-fullscreen" class="btn btn-default" title="Full screen">
+								<span class="icon icon-resize-full"></span>
+							</button>
+							<button id="button-save" class="btn btn-default" title="Save">
+								<span class="icon icon-download"></span>
+							</button>
+                            <input type="file" id="fileElem" accept="application/json" style="display:none"/>
+							<button id="button-load" class="btn btn-default" title="Load">
+								<span class="icon icon-upload"></span>
+							</button>
+							<button id="button-template" class="btn btn-default" title="Save template">
+								<span class="icon icon-layout"></span>
+							</button>
+							<button id="button-favorite-yes" class="btn btn-default hidden" title="Unfavorite">
+								<span class="icon icon-star"></span>
+							</button>
+							<button id="button-favorite-no" class="btn btn-default" title="Favorite">
+								<span class="icon icon-star-empty"></span>
+							</button>
+							<button id="button-help" class="btn btn-default" title="Rules, credits, about">
+								<span class="icon icon-info-circled"></span>
+							</button>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/js-yaml/dist/js-yaml.min.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="engine.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="window window-gray">
+
+		<div class="window-content engine-content">
+			<form>
+				<div class="form-group">
+    				<label>Engine name</label>
+    				<input id="field-name" type="text" class="form-control" placeholder="Engine name"/>
+  				</div>
+				<div id="game" class="form-group">
+					<label>Game</label>
+					<select id="field-game" class="form-control"></select>
+				</div>
+				<div class="form-group">
+					<label>Protocol</label>
+					<select id="field-type" class="form-control"></select>
+				</div>
+				<div id="engine-field-binary" class="form-group engine-field hidden">
+					<label>Binary path</label>
+    				<input id="field-binary" type="text" class="form-control" placeholder="Binary path"/>
+				</div>
+				<div id="engine-field-details" class="form-group engine-field hidden">
+					<label>Details</label>
+					<textarea id="field-details" type="text" class="form-control"></textarea>
+				</div>
+				<div>
+					<a id="help-link" class="regular-link">Need help configuring engine ?</a>
+				</div>
+			</form>
+		</div>
+		<footer class="toolbar toolbar-footer">
+			<div class="toolbar-actions">
+				<button id="button-cancel" class="btn btn-default">Cancel</button>
+				<button id="button-save" class="btn btn-primary pull-right" disabled>Save</button>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="view-options.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="window window-gray">
+
+		<div class="window-content">
+
+			<div class="view-options">
+				<form>
+					<div id="skin" class="form-group hidden">
+						<label class="pull-left">Skin</label>
+						<select class="form-control pull-left"></select>
+					</div>
+					<div id="sounds" class="checkbox hidden">
+						<label>
+							<input type="checkbox"> Sounds
+						</label>
+					</div>
+					<div id="notation" class="checkbox hidden">
+						<label>
+							<input type="checkbox"> Notation
+						</label>
+					</div>
+					<div id="showMoves" class="checkbox hidden">
+						<label>
+							<input type="checkbox"> Show moves
+						</label>
+					</div>
+					<div id="autoComplete" class="checkbox hidden">
+						<label>
+							<input type="checkbox"> Auto-complete moves
+						</label>
+					</div>
+					<div id="anaglyph" class="checkbox hidden">
+						<label>
+							<input type="checkbox"> Anaglyph view
+						</label>
+					</div>
+					<div id="viewAs" class="form-group hidden">
+						<label class="pull-left">View as</label>
+						<select class="form-control pull-left"></select>
+					</div>
+				</form>
+			</div>
+		</div>
+		<footer class="toolbar toolbar-footer">
+			<div class="toolbar-actions">
+				<button id="button-close" class="btn btn-default pull-right">Close</button>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>

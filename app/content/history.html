@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="history.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="window">
+
+		<div class="window-content window-history">
+
+			<div id="moves">
+			</div>
+
+		</div>
+		<footer class="toolbar toolbar-footer">
+			<div class="toolbar-actions">
+
+				<div class="btn-group pull-left">
+					<button class="btn btn-default" data-action="start" title="Start">
+						<span class="icon icon-to-start"></span>
+					</button>
+					<button class="btn btn-default" data-action="stepback" title="Step back">
+						<span class="icon icon-left-dir"></span>
+					</button>
+					<button class="btn btn-default" data-action="stepforward" title="Step forward">
+						<span class="icon icon-right-dir"></span>
+					</button>
+					<button class="btn btn-default" data-action="play" title="Play">
+						<span class="icon icon-play"></span>
+					</button>
+					<button class="btn btn-default" data-action="pause" title="Pause">
+						<span class="icon icon-pause"></span>
+					</button>
+					<button class="btn btn-default" data-action="end" title="End">
+						<span class="icon icon-to-end"></span>
+					</button>
+				</div>
+
+				<div class="btn-group">				
+					<button class="btn btn-default" data-action="save" title="Save book">
+						<span class="icon icon-download"></span>
+					</button>
+					<button class="btn btn-default" data-action="position" title="Load board state">
+						<span class="icon icon-location"></span>
+					</button>
+					<button class="btn btn-default" data-action="showpos" title="Display board state">
+						<span class="icon icon-down-bold"></span>
+					</button>
+					<button class="btn btn-default" data-action="resume" title="Resume from position">
+						<span class="icon icon-forward"></span>
+					</button>
+				</div>
+
+
+				<button id="button-close" class="btn btn-default pull-right">Close</button>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>

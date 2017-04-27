@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="hub.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="window">
+
+		<div class="window-content hub-content">
+			<div class="pane-group">
+				<div class="pane pane-sm sidebar">
+					<nav class="nav-group">
+						<h5 class="nav-group-title">Games</h5>
+						<span id="nav-games-all" class="nav-group-item">
+                			<span class="icon icon-home"></span> All
+						</span>
+						<span id="nav-games-fav"  class="nav-group-item">
+                			<span class="icon icon-star"></span> Favorites
+						</span>
+					</nav>
+					<nav class="nav-group">
+						<h5 class="nav-group-title">Configuration</h5>
+						<span id="nav-templates" class="nav-group-item">
+                			<span class="icon icon-layout"></span> Templates
+						</span>
+						<span id="nav-engines"  class="nav-group-item">
+                			<span class="icon icon-gauge"></span> Engines
+						</span>
+					</nav>
+					<nav class="nav-group">
+						<h5 class="nav-group-title">About</h5>
+						<span id="nav-about" class="nav-group-item">
+                			<span class="icon icon-info"></span> JoclyBoard
+						</span>
+					</nav>
+				</div>
+
+				<div class="pane object-pane">
+					<ul class="pane list-group hidden" id="game-list">
+						<li class="list-group-header">
+							<input id="gamefilter" class="form-control" type="text" placeholder="Search game">
+						</li>
+					</ul>
+					<ul class="pane list-group hidden" id="template-list">
+					</ul>
+					<ul class="pane list-group hidden" id="engine-list">
+						<li class="list-group-header">
+							<span class="icon icon-plus-circled"></span> New engine
+						</li>
+					</ul>
+					<div class="pane hidden" id="about">
+						<h3 class="appName"></h3>
+						<p>Version <span class="appVersion"></span></p>
+						<p>The <a class="goto-joclyboard"><span class="appName"></span> project</a> is based on the <a class="goto-jocly">Jocly</a> 
+							board games Web library.</p>
+						<p>You can play those games against other users from the <a class="goto-jocly-com">jocly.com</a> web site.</p>
+						<p>Jocly and <span class="appName"></span> are released under <a class="goto-agpl-v3">AGPL v3.0</a> license.</p>
+						<p>Found a bug ? use the <a class="goto-issue">issue tracker</a>.</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<footer class="toolbar toolbar-footer hub-notifier hidden">
+			<div class="hub-notifier-text pull-left"></div>
+			<a class="hub-notifier-ok pull-left"></a>
+			<a class="hub-notifier-ko pull-left"></a>
+		</footer>
+
+
+	</div>
+</body>
+
+</html>

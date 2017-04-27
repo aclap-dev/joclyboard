@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<style type="text/css">
+		@font-face {
+			font-family: "7segment";
+			src: url(vendor/7segment.ttf);
+		}
+	</style>
+	<link rel="stylesheet" href="vendor/jocly-pjn/jocly-pjn.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="vendor/jocly-pjn/jocly-crc32.js" charset="utf-8"></script>
+	<script src="vendor/jocly-pjn/jocly-pjn.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="book-history.js" charset="utf-8"></script>
+</head>
+
+<body style="height: 100%">
+	<div class="window"  style="height: 100%">
+		<div class="window-content book-history-content">
+
+			<div id="pjn"></div>
+
+		</div>
+	</div>
+</body>
+
+</html>

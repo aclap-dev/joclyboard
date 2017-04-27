@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="clock-setup.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="window window-gray">
+
+		<div class="window-content clock-setup-content">
+
+			<form>
+
+				<select class="form-control symmetry">
+    				<option value="same">Same for both players</option>
+    				<option value="different">Players have different clocks</option>
+				</select>
+
+				<div class="form-group group-same hidden">
+					<label>Time</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control"/>
+						<select class="form-control">
+    						<option value="1">seconds</option>
+    						<option value="60">minutes</option>
+    						<option value="3600">hours</option>
+						</select>
+					</div>
+				</div>				
+
+				<div class="form-group group-different hidden">
+					<label>Time Player A</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control"/>
+						<select class="form-control">
+    						<option value="1">seconds</option>
+    						<option value="60">minutes</option>
+    						<option value="3600">hours</option>
+						</select>
+					</div>
+				</div>				
+
+				<div class="form-group group-different hidden">
+					<label>Time Player B</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control"/>
+						<select class="form-control">
+    						<option value="1">seconds</option>
+    						<option value="60">minutes</option>
+    						<option value="3600">hours</option>
+						</select>
+					</div>
+				</div>				
+
+
+			</form>
+
+		</div>
+		<footer class="toolbar toolbar-footer">
+			<div class="toolbar-actions">
+				<button id="button-cancel" class="btn btn-default">Cancel</button>
+				<button id="button-save" class="btn btn-primary pull-right disabled">Play</button>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>

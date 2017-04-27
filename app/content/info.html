@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="info.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="window">
+
+		<div class="tab-group">
+			<div class="tab-item hidden" data-tab="rules">
+				Rules
+			</div>
+			<div class="tab-item hidden" data-tab="description">
+				Description
+			</div>
+			<div class="tab-item hidden" data-tab="credits">
+				Credits
+			</div>
+		</div>
+		<div class="window-content info-content">
+			<div data-tab="rules" class="info-panel hidden">
+			</div>
+			<div data-tab="description" class="info-panel hidden">
+			</div>
+			<div data-tab="credits" class="info-panel hidden">
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

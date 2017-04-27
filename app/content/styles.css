@@ -1,0 +1,442 @@
+.titlebar {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+.object-list-item {
+	position: relative;
+}
+
+.object-list-item:hover {
+	background-color: #dcdfe1;
+}
+
+.object-list-item .media-body {
+	transition: margin-right 200ms;
+	padding-top: 5px;
+}
+
+.object-list-item .list-shortcut {
+	width: 0;
+	height: 48px;
+	position: absolute;
+	top: 8px;
+	right: 0;
+	text-align: center;
+	background-color: #0a0;
+	color: #fff;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 24pt;
+	transition: width 200ms, margin-right 200ms;
+}
+
+.object-list-item .list-shortcut span {
+	cursor: pointer;
+}
+
+.object-list-item:hover .list-shortcut {
+	width: 48px;
+	font-size: 24pt;
+	margin-right: 6px;
+}
+
+.object-list-item .list-shortcut-del {
+	height: 16px;
+	background-color: #a00;
+}
+.object-list-item:hover .list-shortcut-del {
+	width: 16px;
+	font-size: 8pt;
+}
+
+.play-content .object-list-item:hover .media-body {
+	margin-right: 64px;
+}
+
+.game-area {
+	height: 100%;
+	width: 100%;
+}
+
+.game-zone {
+	display: table;
+	height: 100%;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.game-zone > div {
+	display: table-row;
+}
+
+.game-zone > div > div {
+	display: table-cell;
+}
+
+.game-zone > div.game-fullsize > div > div {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.game-zone > div > div.game-fullsize > div > div {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+}
+
+.game-zone > div.game-footer {
+	height: 30px;
+}
+
+.hidden {
+	display: none;
+}
+
+#board-footer-text {
+	line-height: 20pt;
+	padding-left: 8px;
+}
+
+.players-container {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	height: 100%;
+}
+
+.players-container > div {
+	display: table-row;
+}
+
+.players-container > div:first-child {
+	text-align: center;
+	height: 0;
+}
+
+.players-container > div:first-child > div {
+	vertical-align: middle;
+}
+
+.players-container > div > div {
+	display: table-cell;
+	padding: 8px;
+}
+
+.players-container > div > div:first-child {
+	border-right: 1px solid #eee;
+}
+
+.window-gray {
+  background-color: #f5f5f4;
+}
+
+.view-options {
+	width: 100%;
+	padding: 20px;
+}
+
+.view-options .form-group {
+	overflow: hidden;
+}
+
+.view-options .form-group label {
+	min-width: 50px;
+	margin-right: 12px;
+	margin-top: 4px;
+	display: inline-block;
+}
+
+.view-options .form-group select {
+	width: auto;
+}
+
+.info-panel {
+	padding: 8px;
+}
+
+.save-template {
+	padding: 8px;
+}
+
+.save-template p {
+	font-style: italic;
+}
+
+.btn.disabled, .btn[disabled] {
+    cursor: default;
+    background-image: none;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #333;
+    background-color: #E6E6E6;
+	pointer-events: none;
+}
+
+#engine-list .list-group-header {
+	background-color: #f5f5f4;
+	cursor: pointer;
+}
+
+#engine-list .list-group-header .icon {
+	color: #0a0;
+	font-size: 16px;
+	margin-right: 6px;
+}
+
+.engine-content {
+	padding: 8px;
+}
+
+.engine-content #name {
+	overflow: hidden;
+}
+
+.engine-content form {
+	width: 100%;
+	display: block;
+}
+
+#engine-field-details textarea {
+	height: 150px;
+}
+
+.form-control.error {
+    border-color: #f88;
+    box-shadow: 0 0 0 3px #f88;
+}
+
+.form-control.error:focus {
+    border-color: #f8f;
+    box-shadow: 0 0 0 3px #f8f;
+}
+
+.window-history #moves {
+	padding: 8px;
+}
+
+.window-history #moves > * {
+	float: left;
+	margin: 0;
+	padding: 2px 4px;
+}
+
+.window-history .move {
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+.window-history .move:hover {
+	background-color: #dcdfe1;
+}
+
+.window-history .move.active {
+	background-color: #48f;
+	color: #fff;
+	cursor: default;
+}
+
+.game-container {
+	display: table;
+	height: 100%;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.game-container > div {
+	display: table-row;
+}
+
+.game-container > div > div {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.game-container .visuals {
+	background-color: #f88;
+}
+
+.game-container .visuals > div {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.game-container .visuals > div > div {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	transition: opacity 3s;
+	background-size: cover;
+	background-position: center;
+}
+
+.game-container .info .game-title {
+	font-weight: bold;
+	font-size: 16pt;
+}
+
+.game-container .info .info-game {
+	padding: 10% 20%;
+}
+
+.game-container .info .game-thumbnail {
+	width: 48px;
+	height: 48px;
+	background-size: contain;
+	float: left;
+	margin-top: 10%;
+	margin-right: 5%;
+}
+
+.game-container .info .buttons button {
+	margin: 2%;
+}
+
+.game-container .info .templates {
+	padding: 5% 10%;
+	max-height: 150px;
+	overflow: auto;
+	text-align: center;
+}
+
+.game-container .info .template {
+	display: inline-block;
+	margin: 0 3px;
+	cursor: pointer;
+}
+
+.game-container .info .template:hover {
+	background-color: #dcdfe1;
+}
+
+.regular-link {
+	color: #217ac0;
+}
+
+.clock-setup-content {
+	padding: 8px;
+}
+
+.clock-setup-content form {
+	width: 100%;
+}
+
+.clock-setup-content .form-group {
+	margin-top: 12px;
+}
+
+.clock-setup-content .form-horizontal > * {
+	display: inline-block;
+	width: 49%;
+}
+
+.clock-content .clock {
+	display: table;
+	height: 100%;
+	width: 100%;
+	table-layout: fixed;	
+}
+
+.clock-content .clock > div {
+	display: table-row;
+}
+
+.clock-content .clock > div > div {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.clock-content .times > div {
+	font-family: "7segment";
+	font-size: 15vmax;
+	color: #ccc;
+}
+
+.clock-content .times > div.turn {
+	color: #000;
+}
+
+.clock-content .players > div {
+	padding: 2px;
+	margin: 2px 6px;
+	border-radius: 4px;
+}
+
+.clock-content .players > div.turn {
+	background-color: #000;
+	color: #fff;
+}
+
+.book-content .list-group-item {
+	border-top: 0;
+	padding: 4px 10px;
+}
+
+.book-content .message {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.book-content .message > div {
+	display: table-row;
+}
+
+.book-content .message > div > div {
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+.book-history-content #pjn {
+	padding: 8px;
+}
+
+.hub-content #about {
+	padding: 8px;
+}
+
+.hub-content a {
+	color: #217ac0;
+}
+
+.open-position-content {
+	padding: 8px;
+}
+
+.show-position-content {
+	padding: 8px;
+}
+
+.show-position-content form {
+	width: 100%;
+}
+
+.info-content a {
+	color: #217ac0;
+	cursor: pointer;
+}
+
+.hub-notifier > * {
+	margin: 0 8px;
+}
+
+.hub-notifier > a {
+	color: #217ac0;
+	cursor: pointer;
+}

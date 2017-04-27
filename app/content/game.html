@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html style="height:100%">
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="game.js" charset="utf-8"></script>
+</head>
+
+<body style="height:100%">
+	<div class="window" style="height:100%">
+
+		<!-- Your app's content goes inside .window-content -->
+		<div class="window-content" style="height:100%">
+
+			<div class="game-container">
+				<div>
+					<div class="visuals">
+						<div>
+						</div>
+					</div>
+					<div class="info">
+						<div class="info-game">
+							<div class="game-thumbnail"></div>
+							<div class="game-title"></div>
+							<div class="game-summary"></div>
+						</div>
+
+						<div class="buttons">
+							<button id="quickplay" class="btn-positive"><span class="icon icon-play"> Quick play</button>
+							<button id="clockedplay" class="btn-primary"><span class="icon icon-clock"> Clocked play</button>
+                            <input type="file" id="fileElem" accept=".pgn,.pdn,.pjn" style="display:none"/>
+							<button id="openbook" class="btn-primary"><span class="icon icon-book"> Open book</button>
+							<button id="boardstate" class="btn-primary"><span class="icon icon-location"> Board state</button>
+							<button id="unfavorite" class="btn-primary"><span class="icon icon-star"> Favorite</button>
+							<button id="favorite" class="btn-primary"><span class="icon icon-star-empty"> Not favorite</button>
+							<button id="info" class="btn-primary"><span class="icon icon-info-circled"> Rules, credits, about</button>
+						</div>
+
+						<div class="templates">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>
