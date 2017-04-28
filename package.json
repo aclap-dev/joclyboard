@@ -1,65 +1,69 @@
 {
-	"name": "JoclyBoard",
-	"description": "Desktop application for playing board games",
-	"version": "0.9.1",
-	"productName": "JoclyBoard",
-	"keywords": [
-		"board games",
-		"chess",
-		"draughts",
-		"variants",
-		"webgl",
-		"electron",
-		"javascript"
-	],
-	"homepage": "https://github.com/mi-g/joclyboard",
-	"author": {
-		"name": "Michel Gutierrez",
-		"email": "mig@jocly.com",
-		"url": "https://github.com/mi-g"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/mi-g/joclyboard"
-	},
-	"license": "AGPL-3.0 OR SEE LICENSE IN COPYING.md",
-	"devDependencies": {
-		"electron": "^1.6.1",
-		"gulp": "^3.9.1",
-		"gulp-jison": "^1.2.0"
-	},
-	"build": {
-		"appId": "com.jocly.board",
-		"linux": {
-			"target": [
-				"deb",
-				"tar.gz",
-				"AppImage"
-			],
-			"maintainer": "Michel Gutierrez <mig@jocly.com> (https://github.com/mi-g)"
-		},
-		"win": {
-			"target": [
-				"nsis"
-			]
-		},
-		"nsis": {
-			"runAfterFinish": false,
-			"deleteAppDataOnUninstall": true
-		},
-		"mac": {
-			"category": "public.app-category.games"
-		},
-		"publish": {
-			"provider": "github",
-			"owner": "mi-g",
-			"repo": "joclyboard"
-		}
-	},
-	"scripts": {
-		"dist": "build --win --linux --ia32 --x64",
-		"dist-mac": "build --mac",
-		"joclyboard": "electron app"
-	},
-	"postinstall": "install-app-deps"
+  "name": "JoclyBoard",
+  "description": "Desktop application for playing board games",
+  "version": "0.9.2",
+  "productName": "JoclyBoard",
+  "keywords": [
+    "board games",
+    "chess",
+    "draughts",
+    "variants",
+    "webgl",
+    "electron",
+    "javascript"
+  ],
+  "homepage": "https://github.com/mi-g/joclyboard",
+  "author": {
+    "name": "Michel Gutierrez",
+    "email": "mig@jocly.com",
+    "url": "https://github.com/mi-g"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mi-g/joclyboard"
+  },
+  "license": "AGPL-3.0 OR SEE LICENSE IN COPYING.md",
+  "devDependencies": {
+    "electron": "^1.6.1",
+    "gulp": "^3.9.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-jison": "^1.2.0",
+    "jshint": "^2.9.4"
+  },
+  "build": {
+    "appId": "com.jocly.board",
+    "linux": {
+      "target": [
+        "deb",
+        "tar.gz",
+        "AppImage"
+      ],
+      "maintainer": "Michel Gutierrez <mig@jocly.com> (https://github.com/mi-g)"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "runAfterFinish": false,
+      "deleteAppDataOnUninstall": true
+    },
+    "mac": {
+      "category": "public.app-category.games"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "mi-g",
+      "repo": "joclyboard"
+    }
+  },
+  "scripts": {
+    "dist": "build --win --linux --ia32 --x64",
+    "dist-mac": "build --mac",
+    "start": "node_modules/electron/cli.js app",
+    "jshint": "node_modules/jshint/bin/jshint app/*.js app/content/*.js || true",
+	"app-install": "cd app && npm install"
+  },
+  "postinstall": "install-app-deps"
 }
