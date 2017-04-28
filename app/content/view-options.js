@@ -24,7 +24,6 @@
  *    delete this exception statement from all source files in the program,
  *    then also delete it in the license file.
  */
-var electron = require('electron');
 var rpc = require('../rpc');
 var jbwu = require('./joclyboard-winutils');
 
@@ -39,15 +38,15 @@ rpc.listen({
 });
 
 function FilterSkins(allSkins) {
-	var supports3D = ( function () { 
-		try { 
-			return !! window.WebGLRenderingContext && !! document.createElement( 'canvas' ).getContext( 'experimental-webgl' ); 
-		} 
-		catch( e ) { 
-			return false; 
-		} 
-	} )();
-	return allSkins.filter((skin)=>{
+	var supports3D = (function () {
+		try {
+			return !!window.WebGLRenderingContext && !!document.createElement('canvas').getContext('experimental-webgl');
+		}
+		catch (e) {
+			return false;
+		}
+	})();
+	return allSkins.filter((skin) => {
 		return supports3D || !skin["3d"];
 	})
 }
@@ -60,7 +59,7 @@ function UpdateOptions(_viewOptions) {
 	skins.forEach((skin) => {
 		$("<option>").attr("value", skin.name).text(skin.title).appendTo($("#skin select"));
 	});
-	if(options.skin in skins.map((skin)=>skin.name))
+	if (options.skin in skins.map((skin) => skin.name))
 		$("#skin select").val(options.skin);
 	else
 		$("#skin select").val(skins[0].name);

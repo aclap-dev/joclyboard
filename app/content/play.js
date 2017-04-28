@@ -24,7 +24,6 @@
  *    delete this exception statement from all source files in the program,
  *    then also delete it in the license file.
  */
-var electron = require('electron');
 var settings = require('electron-settings');
 var rpc = require("../rpc");
 var jbwu = require('./joclyboard-winutils');
@@ -146,9 +145,9 @@ $(document).ready(() => {
 			Jocly.createMatch(gameName)
 				.then((_match) => {
 					match = _match;
-					return Promise.all([match.getAvailableSkins(),match.getConfig()]);
+					return Promise.all([match.getAvailableSkins(), match.getConfig()]);
 				})
-				.then(([skins,config]) => {
+				.then(([skins, config]) => {
 					var gameArea = $(".game-area")[0];
 					viewOptions = viewOptions || settings.get("view-options:" + match.gameName, null) || config.view.defaultOptions || {};
 					if (!(viewOptions.skin in skins.map((skin) => skin.name)))
