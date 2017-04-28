@@ -290,7 +290,7 @@ parse: function parse(input) {
 }};
 
 
-	//console.log("PJNParser");
+	// jshint ignore: start
 
 	var GetNagString = function(nag) {
 		return "#"+nag;
