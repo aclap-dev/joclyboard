@@ -430,7 +430,7 @@ class JBMatch {
 		else
 			utils.createWindowPromise(`file://${__dirname}/content/players.html?id=${self.id}`, {
 				width: 400,
-				height: 220
+				height: 240
 			}, {
 					onClosed: function () {
 						delete self.playersWin;
@@ -515,7 +515,7 @@ class JBMatch {
 				winOptions.persist = "clock:" + self.gameName
 			utils.createWindowPromise(`file://${__dirname}/content/clock.html?id=${self.id}`, {
 				width: 400,
-				height: 125,
+				height: 145,
 				minWidth: 100,
 				minHeight: 25
 			}, winOptions)
