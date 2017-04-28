@@ -44,10 +44,10 @@ app.on('activate', () => {
 
 app.on('ready', () => {
 	control.createMainWindow();
-	!isDev && autoUpdater.checkForUpdates();
+	!isDev && autoUpdater.checkForUpdates(); // jshint ignore:line
 });
 
-!isDev && autoUpdater.on('update-downloaded', (ev, info) => {
+!isDev && autoUpdater.on('update-downloaded', (ev, info) => { 
 	control.notifyUser({
 		text: "Version " + info.version + " is available.",
 		okText: "Quit and install",
@@ -56,5 +56,5 @@ app.on('ready', () => {
 		if (install)
 			autoUpdater.quitAndInstall();
 	})
-});
+}); // jshint ignore:line
 
