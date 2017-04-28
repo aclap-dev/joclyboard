@@ -57,11 +57,9 @@
 		}
 	},
 	"scripts": {
-		"pack": "build --dir",
 		"dist": "build --win --linux --ia32 --x64",
-		"dist-test": "build --linux --x64",
 		"dist-mac": "build --mac",
-		"package-linux": "electron-packager app --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
+		"joclyboard": "electron app"
 	},
 	"postinstall": "install-app-deps"
 }
