@@ -25,6 +25,7 @@
   "license": "AGPL-3.0 OR SEE LICENSE IN COPYING.md",
   "devDependencies": {
     "electron": "^1.6.1",
+    "electron-builder": "^17.1.1",
     "gulp": "^3.9.1",
     "gulp-insert": "^0.5.0",
     "gulp-jison": "^1.2.0",
@@ -61,9 +62,9 @@
   "scripts": {
     "dist": "build --win --linux --ia32 --x64",
     "dist-mac": "build --mac",
-    "start": "node_modules/electron/cli.js app",
+    "start": "node_modules/electron/cli.js app || true",
     "jshint": "node_modules/jshint/bin/jshint app/*.js app/content/*.js || true",
-	"app-install": "cd app && npm install"
+    "app-install": "cd app && npm install"
   },
   "postinstall": "install-app-deps"
 }
