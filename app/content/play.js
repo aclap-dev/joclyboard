@@ -53,7 +53,7 @@ var match;
 $(document).ready(() => {
 	Jocly.getGameConfig(gameName)
 		.then((config) => {
-			jbwu.init(config.model["title-en"] + " #" + matchId,".game-header");
+			jbwu.init(config.model["title-en"] + " #" + matchId, ".game-header");
 			$("#button-favorite-no").on("click", () => {
 				rpc.call("setFavorite", gameName, true);
 				$("#button-favorite-no").hide();
@@ -146,8 +146,13 @@ $(document).ready(() => {
 			Jocly.createMatch(gameName)
 				.then((_match) => {
 					match = _match;
+					return match.getAvailableSkins();
+				})
+				.then((skins) => {
 					var gameArea = $(".game-area")[0];
 					viewOptions = viewOptions || settings.get("view-options:" + match.gameName, null);
+					if (!(viewOptions.skin in skins.map((skin) => skin.name)))
+						viewOptions.skin = skins[0].name;
 					return match.attachElement(gameArea, { viewOptions: viewOptions });
 				})
 				.then(() => {

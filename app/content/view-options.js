@@ -38,14 +38,32 @@ var viewOptions;
 rpc.listen({
 });
 
+function FilterSkins(allSkins) {
+	var supports3D = ( function () { 
+		try { 
+			return !! window.WebGLRenderingContext && !! document.createElement( 'canvas' ).getContext( 'experimental-webgl' ); 
+		} 
+		catch( e ) { 
+			return false; 
+		} 
+	} )();
+	return allSkins.filter((skin)=>{
+		return supports3D || !skin["3d"];
+	})
+}
+
 function UpdateOptions(_viewOptions) {
 	viewOptions = _viewOptions;
 	var { options, config, players } = _viewOptions;
 	$("#skin").show();
-	config.skins.forEach((skin) => {
+	var skins = FilterSkins(config.skins);
+	skins.forEach((skin) => {
 		$("<option>").attr("value", skin.name).text(skin.title).appendTo($("#skin select"));
 	});
-	$("#skin select").val(options.skin);
+	if(options.skin in skins.map((skin)=>skin.name))
+		$("#skin select").val(options.skin);
+	else
+		$("#skin select").val(skins[0].name);
 	$("#sounds").show().find("input").prop("checked", options.sounds);
 	if (config.useNotation)
 		$("#notation").show().find("input").prop("checked", options.notation);
