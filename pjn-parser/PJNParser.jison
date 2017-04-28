@@ -1,8 +1,6 @@
 
 %{
 
-	// jshint ignore: start
-
 	var GetNagString = function(nag) {
 		return "#"+nag;
 	}
