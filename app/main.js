@@ -27,12 +27,14 @@
 const electron = require("electron");
 const app = electron.app;
 const control = require("./joclyboard");
-const autoUpdater = require("electron-updater").autoUpdater;
+const isDev = require("electron-is-dev");
+
+var autoUpdater;
+if(!isDev)
+	autoUpdater = require("electron-updater").autoUpdater;
 
 app.on('window-all-closed', () => {
-	if (process.platform !== 'darwin') {
-		app.quit();
-	}
+	app.quit();
 });
 
 app.on('activate', () => {
@@ -42,10 +44,10 @@ app.on('activate', () => {
 
 app.on('ready', () => {
 	control.createMainWindow();
-	autoUpdater.checkForUpdates();
+	!isDev && autoUpdater.checkForUpdates();
 });
 
-autoUpdater.on('update-downloaded', (ev, info) => {
+!isDev && autoUpdater.on('update-downloaded', (ev, info) => {
 	control.notifyUser({
 		text: "Version " + info.version + " is available.",
 		okText: "Quit and install",
@@ -55,3 +57,4 @@ autoUpdater.on('update-downloaded', (ev, info) => {
 			autoUpdater.quitAndInstall();
 	})
 });
+
