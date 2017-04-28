@@ -146,11 +146,11 @@ $(document).ready(() => {
 			Jocly.createMatch(gameName)
 				.then((_match) => {
 					match = _match;
-					return match.getAvailableSkins();
+					return Promise.all([match.getAvailableSkins(),match.getConfig()]);
 				})
-				.then((skins) => {
+				.then(([skins,config]) => {
 					var gameArea = $(".game-area")[0];
-					viewOptions = viewOptions || settings.get("view-options:" + match.gameName, null);
+					viewOptions = viewOptions || settings.get("view-options:" + match.gameName, null) || config.view.defaultOptions || {};
 					if (!(viewOptions.skin in skins.map((skin) => skin.name)))
 						viewOptions.skin = skins[0].name;
 					return match.attachElement(gameArea, { viewOptions: viewOptions });
