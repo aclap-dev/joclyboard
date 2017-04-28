@@ -1,45 +1,46 @@
 {
-	"name": "JoclyBoard",
-	"description": "Desktop application for playing board games",
-	"version": "0.9.1",
-	"productName": "JoclyBoard",
-	"homepage": "https://github.com/mi-g/joclyboard",
-	"author": {
-		"name": "Michel Gutierrez",
-		"email": "mig@jocly.com",
-		"url": "https://github.com/mi-g"
-	},
-	"devDependencies": {
-		"electron": "^1.6.1"
-	},
-	"main": "main.js",
-	"scripts": {
-		"start": "electron ."
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/mi-g/joclyboard"
-	},
-	"license": "AGPL-3.0 OR SEE LICENSE IN COPYING.md",
-	"keywords": [
-		"board game client",
-		"chess",
-		"draughts",
-		"winboard",
-		"cecp",
-		"uci",
-		"udi",
-		"dxp"
-	],
-	"dependencies": {
-		"byline": "^5.0.0",
-		"electron-debug": "^1.1.0",
-		"electron-settings": "^3.0.14",
-		"electron-updater": "^1.14.2",
-		"jocly": "^0.9.1",
-		"jquery": "^3.2.1",
-		"js-yaml": "^3.8.3",
-		"photonkit": "^0.1.2",
-		"yargs": "^7.0.2"
-	}
+  "name": "JoclyBoard",
+  "description": "Desktop application for playing board games",
+  "version": "0.9.1",
+  "productName": "JoclyBoard",
+  "homepage": "https://github.com/mi-g/joclyboard",
+  "author": {
+    "name": "Michel Gutierrez",
+    "email": "mig@jocly.com",
+    "url": "https://github.com/mi-g"
+  },
+  "devDependencies": {
+    "electron": "^1.6.1"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mi-g/joclyboard"
+  },
+  "license": "AGPL-3.0 OR SEE LICENSE IN COPYING.md",
+  "keywords": [
+    "board game client",
+    "chess",
+    "draughts",
+    "winboard",
+    "cecp",
+    "uci",
+    "udi",
+    "dxp"
+  ],
+  "dependencies": {
+    "byline": "^5.0.0",
+    "electron-debug": "^1.1.0",
+    "electron-is-dev": "^0.1.2",
+    "electron-settings": "^3.0.14",
+    "electron-updater": "^1.14.2",
+    "jocly": "^0.9.1",
+    "jquery": "^3.2.1",
+    "js-yaml": "^3.8.3",
+    "photonkit": "^0.1.2",
+    "yargs": "^7.0.2"
+  }
 }
