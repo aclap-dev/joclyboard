@@ -24,7 +24,7 @@
   },
   "license": "AGPL-3.0 OR SEE LICENSE IN COPYING.md",
   "devDependencies": {
-    "electron": "^1.6.1",
+    "electron": "^1.6.6",
     "electron-builder": "^17.1.1",
     "gulp": "^3.9.1",
     "gulp-insert": "^0.5.0",
