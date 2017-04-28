@@ -24,34 +24,26 @@
  *    delete this exception statement from all source files in the program,
  *    then also delete it in the license file.
  */
-var electron = require('electron');
-var rpc = require('../rpc');
-var jbwu = require('./joclyboard-winutils');
+const electron = require('electron');
+const os = require('os');
 
-var gameName = (function () {
-	var m = /\?.*\bgame=([^&]+)/.exec(window.location.href)
-	return m && m[1] || "classic-chess";
-})();
+exports.init = (title, header) => {
+	if (os.platform() == 'darwin') {
+		if (header)
+			$(header).removeClass("hidden").find("h1").text(title);
+		else
+			$(".window").prepend(
+				$("<header>")
+					.addClass("toolbar toolbar-header")
+					.prepend($("<h1>")
+						.addClass("title")
+						.text(title)
+					)
+			)
+	} else
+		$("head title").text(title);
+}
 
-var matchId = (function () {
-	var m = /\?.*\bid=([0-9]+)/.exec(window.location.href)
-	return m && m[1] || '';
-})();
-
-rpc.listen({
-	setPosition: (data) => {
-		$("textarea").val(data);
-	}
-})
-
-$(document).ready(() => {
-	Jocly.getGameConfig(gameName)
-		.then((config) => {
-			jbwu.init(config.model["title-en"] + " #" + matchId + " board state");
-			$("#button-cancel").on("click", () => {
-				window.close();
-			});
-			jbwu.ready();
-		});
-});
-
+exports.ready = () => {
+	electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+}

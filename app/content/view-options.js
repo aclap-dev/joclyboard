@@ -26,6 +26,7 @@
  */
 var electron = require('electron');
 var rpc = require('../rpc');
+var jbwu = require('./joclyboard-winutils');
 
 var matchId = (function () {
 	var m = /\?.*\bid=([0-9]+)/.exec(window.location.href)
@@ -80,14 +81,14 @@ function SetViewOptions() {
 }
 
 $(document).ready(() => {
-	$("head title").text("View Options #" + matchId);
+	jbwu.init("View Options #" + matchId);
 	rpc.call("getViewInfo", matchId)
 		.then(UpdateOptions)
 		.then(() => {
 			$(".view-options").on("change", SetViewOptions);
 		})
 		.then(() => {
-			electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+			jbwu.ready();
 		});
 	$("#button-close").on("click", () => {
 		window.close();

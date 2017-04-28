@@ -27,6 +27,7 @@
 var electron = require('electron');
 var settings = require('electron-settings');
 var rpc = require("../rpc");
+var jbwu = require('./joclyboard-winutils');
 
 var gameName = (function () {
 	var m = /\?.*\bgame=([^&]+)/.exec(window.location.href)
@@ -52,7 +53,7 @@ var match;
 $(document).ready(() => {
 	Jocly.getGameConfig(gameName)
 		.then((config) => {
-			$("head title").text(config.model["title-en"] + " #" + matchId);
+			jbwu.init(config.model["title-en"] + " #" + matchId,".game-header");
 			$("#button-favorite-no").on("click", () => {
 				rpc.call("setFavorite", gameName, true);
 				$("#button-favorite-no").hide();
@@ -150,7 +151,7 @@ $(document).ready(() => {
 					return match.attachElement(gameArea, { viewOptions: viewOptions });
 				})
 				.then(() => {
-					electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+					jbwu.ready();
 				})
 		});
 });

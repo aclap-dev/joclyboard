@@ -28,6 +28,7 @@ var electron = require("electron");
 var settings = require("electron-settings");
 var rpc = require('../rpc');
 var pjson = require('../package.json');
+var jbwu = require('./joclyboard-winutils');
 
 var gameList = [], gamesMap = {};
 var allGameList = [], favGameList = [], templateList = [], engineList = [];
@@ -386,5 +387,6 @@ $(document).ready(() => {
 
 	About();
 
-	electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+	jbwu.init(pjson.productName+" "+pjson.version);
+	jbwu.ready();
 });

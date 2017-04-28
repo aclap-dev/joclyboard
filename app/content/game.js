@@ -26,6 +26,7 @@
  */
 var rpc = require('../rpc');
 var settings = require('electron-settings');
+var jbwu = require('./joclyboard-winutils');
 
 var gameName = (function () {
 	var m = /\?.*\bgame=([^&]+)/.exec(window.location.href)
@@ -149,7 +150,7 @@ function OpenBook() {
 $(document).ready(() => {
 	Jocly.getGameConfig(gameName)
 		.then((config) => {
-			$("head title").text(config.model["title-en"]);
+			jbwu.init(config.model["title-en"]);
 			SetupVisuals(config.view);
 			SetupInfo(config);
 			UpdateTemplates();

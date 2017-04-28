@@ -26,6 +26,7 @@
  */
 var electron = require('electron');
 var rpc = require('../rpc');
+var jbwu = require('./joclyboard-winutils');
 
 const engineTypes = {
 	"": {
@@ -104,7 +105,7 @@ function Link(selector, url) {
 }
 
 $(document).ready(() => {
-	$("head title").text("Engine");
+	jbwu.init("Engine");
 	Jocly.listGames()
 		.then((games) => {
 

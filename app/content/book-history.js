@@ -26,6 +26,7 @@
  */
 var electron = require('electron');
 var rpc = require('../rpc');
+var jbwu = require('./joclyboard-winutils');
 
 PJNParser = require('../PJNParser').parser; // make parser global so that jocly-pjn can work
 
@@ -60,8 +61,8 @@ rpc.listen({
 
 $(document).ready(() => {
 
-	$("head title").text("Book #" + matchId);
-	electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+	jbwu.init("Book #" + matchId);
+	jbwu.ready();
 
 });
 

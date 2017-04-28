@@ -25,6 +25,7 @@
  *    then also delete it in the license file.
  */
 var rpc = require('../rpc');
+var jbwu = require('./joclyboard-winutils');
 
 var gameName = (function () {
 	var m = /\?.*\bgame=([^&]+)/.exec(window.location.href)
@@ -39,7 +40,7 @@ var matchId = (function () {
 $(document).ready(() => {
 	Jocly.getGameConfig(gameName)
 		.then((config) => {
-			$("head title").text(config.model["title-en"] + " board state");
+			jbwu.init(config.model["title-en"] + " board state");
 			$("#button-cancel").on("click", () => {
 				window.close();
 			});

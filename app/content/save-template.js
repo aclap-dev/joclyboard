@@ -25,6 +25,7 @@
  *    then also delete it in the license file.
  */
 var rpc = require('../rpc');
+var jbwu = require('./joclyboard-winutils');
 
 var matchId = (function () {
 	var m = /\?.*\bid=([0-9]+)/.exec(window.location.href)
@@ -37,7 +38,7 @@ var initialName = (function () {
 })();
 
 $(document).ready(() => {
-	$("head title").text("Save #" + matchId + " as template");
+	jbwu.init("Save #" + matchId + " as template");
 	$("input").val(initialName).focus().on("change keydown paste input", () => {
 		var name = $("input").val().replace(/[^0-9A-Za-z\-_]/g, "");
 		$("input").val(name);

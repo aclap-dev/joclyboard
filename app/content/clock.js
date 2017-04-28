@@ -26,6 +26,7 @@
  */
 var electron = require('electron');
 var rpc = require('../rpc');
+var jbwu = require('./joclyboard-winutils');
 
 var matchId = (function () {
 	var m = /\?.*\bid=([0-9]+)/.exec(window.location.href)
@@ -90,7 +91,7 @@ function Update() {
 
 $(document).ready(() => {
 
-	$("head title").text("Clock #" + matchId);
+	jbwu.init("Clock #" + matchId);
 	[Jocly.PLAYER_A, Jocly.PLAYER_B].forEach((which) => {
 		$("<div>").attr("id", "clock-player" + which).appendTo($(".clock .players"));
 		$("<div>").attr("id", "clock-time" + which).appendTo($(".clock .times"));
@@ -98,7 +99,7 @@ $(document).ready(() => {
 	UpdateClock().then(() => {
 		setInterval(Update, 100);
 	});
-	electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+	jbwu.ready();
 
 });
 

@@ -26,6 +26,7 @@
  */
 var electron = require('electron');
 var rpc = require('../rpc');
+var jbwu = require('./joclyboard-winutils');
 
 var gameName = (function () {
 	var m = /\?.*\bgame=([^&]+)/.exec(window.location.href)
@@ -157,7 +158,7 @@ function SaveBook() {
 }
 
 $(document).ready(() => {
-	$("head title").text("History #" + matchId);
+	jbwu.init("History #" + matchId);
 	$("[data-action=start]").on("click", () => {
 		frozen = true;
 		SelectMove(-1);
@@ -198,7 +199,7 @@ $(document).ready(() => {
 	});
 	RequestHistory()
 		.then(() => {
-			electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+			jbwu.ready();
 		});
 	$("#button-close").on("click", () => {
 		window.close();

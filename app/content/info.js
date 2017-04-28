@@ -25,6 +25,7 @@
  *    then also delete it in the license file.
  */
 const electron = require("electron");
+var jbwu = require('./joclyboard-winutils');
 
 var gameName = (function () {
 	var m = /\?.*\bgame=([^&]+)/.exec(window.location.href)
@@ -73,7 +74,7 @@ function GetHtml(config, what) {
 $(document).ready(() => {
 	Jocly.getGameConfig(gameName)
 		.then((config) => {
-			$("head title").text("About " + config.model["title-en"]);
+			jbwu.init("About " + config.model["title-en"]);
 			GetHtml(config, "rules");
 			GetHtml(config, "description");
 			GetHtml(config, "credits");

@@ -27,6 +27,7 @@
 var electron = require('electron');
 var rpc = require('../rpc');
 var settings = require('electron-settings');
+var jbwu = require('./joclyboard-winutils');
 
 var gameName = (function () {
 	var m = /\?.*\bgame=([^&]+)/.exec(window.location.href)
@@ -78,7 +79,7 @@ function GetClock() {
 $(document).ready(() => {
 	Jocly.getGameConfig(gameName)
 		.then((config) => {
-			$("head title").text(config.model["title-en"] + " clock setup");
+			jbwu.init(config.model["title-en"] + " clock setup");
 		});
 	$("#button-save").on("click", () => {
 		var clock = GetClock();
@@ -133,7 +134,7 @@ $(document).ready(() => {
 			$("#button-save").addClass("disabled");
 	});
 	$(".clock-setup-content").trigger("change");
-	electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+	jbwu.ready();
 
 });
 

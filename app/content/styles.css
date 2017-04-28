@@ -93,6 +93,22 @@
 	height: 30px;
 }
 
+.game-zone > div.game-header {
+	height: 1em;
+	width: 100%;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+}
+
+.game-zone > div.game-header.hidden {
+	display: none;
+}
+
+.toolbar-header {
+	-webkit-user-select: none;
+	-webkit-app-region: drag;	
+}
+
 .hidden {
 	display: none;
 }

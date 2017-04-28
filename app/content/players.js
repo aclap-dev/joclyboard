@@ -26,6 +26,7 @@
  */
 var electron = require('electron');
 var rpc = require('../rpc');
+var jbwu = require('./joclyboard-winutils');
 
 var matchId = (function () {
 	var m = /\?.*\bid=([0-9]+)/.exec(window.location.href)
@@ -67,11 +68,11 @@ function UpdatePlayers(data) {
 }
 
 $(document).ready(() => {
-	$("head title").text("Players #" + matchId);
+	jbwu.init("Players #" + matchId);
 	rpc.call("getPlayersInfo", matchId)
 		.then(UpdatePlayers)
 		.then(() => {
-			electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+			jbwu.ready();
 		});
 	$("#button-cancel").on("click", () => {
 		window.close();
