@@ -149,7 +149,13 @@ $(document).ready(() => {
 				})
 				.then(([skins, config]) => {
 					var gameArea = $(".game-area")[0];
-					viewOptions = viewOptions || settings.get("view-options:" + match.gameName, null) || config.view.defaultOptions || {};
+					viewOptions = Object.assign({
+						sounds: true,
+						notation: false,
+						moves: true,
+						autoComplete: false,
+						viewAs: Jocly.PLAYER_A
+					},config.view.defaultOptions, settings.get("view-options:" + match.gameName, null), viewOptions);
 					if (!(viewOptions.skin in skins.map((skin) => skin.name)))
 						viewOptions.skin = skins[0].name;
 					return match.attachElement(gameArea, { viewOptions: viewOptions });
