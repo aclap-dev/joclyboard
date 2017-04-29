@@ -1274,7 +1274,11 @@ exports.createMainWindow = function () {
 	return utils.createWindowPromise(`file://${__dirname}/content/hub.html`, {
 		show: !argv["hide-main"]
 	}, {
-			persist: "main"
+			persist: "main",
+			onClosed: function () {
+				electron.app.quit();
+			}
+
 		})
 		.then((window) => {
 			exports.mainWindow = window;
