@@ -2,6 +2,8 @@
 
 JoclyBoard is a desktop application to play board games. 
 
+[![alt tag](visuals/screenshots/screenshot1.jpg "JoclyBoard screenshot")](visuals/screenshots/screenshot1-big.jpg)
+
 Features:
 =========
 - Open-source
