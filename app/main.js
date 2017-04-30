@@ -28,9 +28,10 @@ const electron = require("electron");
 const app = electron.app;
 const control = require("./joclyboard");
 const isDev = require("electron-is-dev");
+const argv = require("./joclyboard-argv");
 
-var autoUpdater;
-if(!isDev)
+var autoUpdater = null;
+if(!isDev && !argv["no-autoupdate"])
 	autoUpdater = require("electron-updater").autoUpdater;
 
 app.on('window-all-closed', () => {
@@ -44,17 +45,19 @@ app.on('activate', () => {
 
 app.on('ready', () => {
 	control.createMainWindow();
-	!isDev && autoUpdater.checkForUpdates(); // jshint ignore:line
+	if(autoUpdater)
+		autoUpdater.checkForUpdates();
 });
 
-!isDev && autoUpdater.on('update-downloaded', (ev, info) => { 
-	control.notifyUser({
-		text: "Version " + info.version + " is available.",
-		okText: "Quit and install",
-		koText: "Later"
-	}).then((install) => {
-		if (install)
-			autoUpdater.quitAndInstall();
-	})
-}); // jshint ignore:line
+if(autoUpdater)
+	autoUpdater.on('update-downloaded', (ev, info) => { 
+		control.notifyUser({
+			text: "Version " + info.version + " is available.",
+			okText: "Quit and install",
+			koText: "Later"
+		}).then((install) => {
+			if (install)
+				autoUpdater.quitAndInstall();
+		})
+	});
 
