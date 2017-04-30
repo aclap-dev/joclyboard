@@ -29,7 +29,8 @@
 		"gulp": "^3.9.1",
 		"gulp-insert": "^0.5.0",
 		"gulp-jison": "^1.2.0",
-		"jshint": "^2.9.4"
+		"jshint": "^2.9.4",
+		"extract-zip": "=1.6.0"
 	},
 	"build": {
 		"appId": "com.jocly.board",
