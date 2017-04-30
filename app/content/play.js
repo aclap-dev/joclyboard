@@ -145,9 +145,20 @@ $(document).ready(() => {
 			Jocly.createMatch(gameName)
 				.then((_match) => {
 					match = _match;
-					return Promise.all([match.getAvailableSkins(), match.getConfig()]);
+					return match.getConfig(config);
 				})
-				.then(([skins, config]) => {
+				.then((config) => {
+					var supports3D = (function () {
+						try {
+							return !!window.WebGLRenderingContext && !!document.createElement('canvas').getContext('experimental-webgl');
+						}
+						catch (e) {
+							return false;
+						}
+					})();
+					var skins = config.view.skins.filter((skin) => {
+						return supports3D || !skin["3d"];
+					});
 					var gameArea = $(".game-area")[0];
 					viewOptions = Object.assign({
 						sounds: true,
@@ -155,7 +166,7 @@ $(document).ready(() => {
 						moves: true,
 						autoComplete: false,
 						viewAs: Jocly.PLAYER_A
-					},config.view.defaultOptions, settings.get("view-options:" + match.gameName, null), viewOptions);
+					}, config.view.defaultOptions, settings.get("view-options:" + match.gameName, null), viewOptions);
 					if (!(viewOptions.skin in skins.map((skin) => skin.name)))
 						viewOptions.skin = skins[0].name;
 					return match.attachElement(gameArea, { viewOptions: viewOptions });
