@@ -32,7 +32,7 @@ const utils = require("./joclyboard-utils");
 const jbEngines = require("./joclyboard-engines");
 const JoclyBoardError = require('./joclyboard-error');
 const PJNParser = require("./PJNParser");
-const argv = require("yargs").argv;
+const argv = require("./joclyboard-argv");
 const pjson = require("./package.json");
 
 exports.mainWindow = null;
@@ -448,7 +448,7 @@ class JBMatch {
 		else
 			utils.createWindowPromise(`file://${__dirname}/content/view-options.html?id=${self.id}`, {
 				width: 280,
-				height: 340
+				height: 360
 			}, {
 					onClosed: function () {
 						delete self.viewOptionsWin;
@@ -1323,9 +1323,7 @@ electron.app.on('ready', () => {
 });
 
 if (argv["debug-content"])
-	require("electron-debug")({
-		showDevTools: true
-	});
+	require("electron-debug")({enabled:true});
 
 if (argv["rpc-debug-level"])
 	rpc.setDebug(parseInt(argv["rpc-debug-level"]));
@@ -1342,6 +1340,7 @@ Command line options:
   --quick-play <game>[:<game>...] : start playing game(s) directly
   --play <template>[:<template>...] : start playing from template(s)
   --hide-main : do not show main window
+  --no-autoupdate : do not check for updates
   --debug-content : windows have debugger
   --rpc-debug-level <level> : trace rpc calls
 
