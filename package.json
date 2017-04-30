@@ -48,7 +48,9 @@
 		},
 		"nsis": {
 			"runAfterFinish": false,
-			"deleteAppDataOnUninstall": true
+			"deleteAppDataOnUninstall": true,
+			"perMachine": true,
+			"artifactName": "${productName}-${version}-Setup.${ext}"
 		},
 		"mac": {
 			"category": "public.app-category.games"
@@ -61,6 +63,7 @@
 	},
 	"scripts": {
 		"dist": "build --win --linux --ia32 --x64",
+		"dist-win": "build --win --x64",
 		"dist-mac": "build --mac",
 		"start": "node_modules/electron/cli.js app || true",
 		"jshint": "node_modules/jshint/bin/jshint app/*.js app/content/*.js || true",
