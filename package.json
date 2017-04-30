@@ -1,7 +1,7 @@
 {
 	"name": "JoclyBoard",
 	"description": "Desktop application for playing board games",
-	"version": "0.9.3",
+	"version": "0.9.4",
 	"productName": "JoclyBoard",
 	"keywords": [
 		"board games",
