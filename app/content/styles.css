@@ -114,7 +114,7 @@
 }
 
 #board-footer-text {
-	line-height: 20pt;
+	line-height: 18pt;
 	padding-left: 8px;
 }
 
@@ -456,3 +456,17 @@
 	color: #217ac0;
 	cursor: pointer;
 }
+
+.ephemeral-actions:hover .ephemeral-vanish {
+	height: 0;
+}
+
+.ephemeral-actions .ephemeral-appear {
+	height: 0;
+	overflow: hidden;
+}
+
+.ephemeral-actions:hover .ephemeral-appear {
+	height: auto;
+}
+
