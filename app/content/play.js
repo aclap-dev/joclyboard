@@ -139,6 +139,9 @@ $(document).ready(() => {
 			$("#button-template").on("click", () => {
 				rpc.call("openSaveTemplate", matchId);
 			});
+			$("#button-clone").on("click", () => {
+				rpc.call("cloneMatch", matchId);
+			});
 
 			UpdatePause();
 

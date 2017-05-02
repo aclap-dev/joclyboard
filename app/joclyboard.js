@@ -890,9 +890,20 @@ controller.openSaveTemplate = (matchId) => {
 }
 
 controller.saveTemplate = (matchId, templateName) => {
+	return controller.getTemplateData(matchId)
+		.then(([match,template])=>{
+			var templates = settings.get("templates", {});
+			template.templateName = templateName
+			match.templateName = templateName;
+			templates[templateName] = template;
+			settings.set("templates", templates);
+			return rpc.call(exports.mainWindow, "updateTemplates", templates);
+		})
+}
+
+controller.getTemplateData = (matchId) => {
 	return GetMatch(matchId)
 		.then((match) => {
-			var templates = settings.get("templates", {});
 			var template = {
 				gameName: match.gameName,
 				created: Date.now(),
@@ -902,9 +913,7 @@ controller.saveTemplate = (matchId, templateName) => {
 				viewOptions: match.viewOptions,
 				winSize: match.boardWin.getSize(),
 				winPos: match.boardWin.getPosition(),
-				templateName: templateName
 			}
-			match.templateName = templateName;
 			if (match.historyWin) {
 				let position = match.historyWin.getPosition();
 				let size = match.historyWin.getSize();
@@ -925,9 +934,7 @@ controller.saveTemplate = (matchId, templateName) => {
 					y: position[1]
 				}
 			}
-			templates[templateName] = template;
-			settings.set("templates", templates);
-			return rpc.call(exports.mainWindow, "updateTemplates", templates);
+			return [match,template];
 		});
 }
 
@@ -956,10 +963,17 @@ controller.playTemplate = (templateName) => {
 	settings.set("templates", templates);
 	rpc.call(exports.mainWindow, "updateTemplates", templates)
 		.catch(() => { });
+	return controller.playTemplateData(template);
+}
 
+controller.playTemplateData = (template,gameData) => {
 	var jbMatch = new JBMatch(template.gameName);
 
 	return jbMatch.init(template.clock)
+		.then(() => {
+			if(gameData)
+				return jbMatch.match.load(gameData)
+		})
 		.then(() => {
 			return jbMatch.setPlayers(template.players)
 		})
@@ -1265,6 +1279,16 @@ controller.showBoardState = (gameName, matchId) => {
 				}).then((window) => {
 					rpc.call(window, "setPosition", boardState)
 				});
+		})
+}
+
+controller.cloneMatch = (matchId) => {
+	return controller.getTemplateData(matchId)
+		.then(([match,template])=>{
+			return Promise.all([match.match.save(),template])
+		})
+		.then(([gameData,template])=>{
+			return controller.playTemplateData(template,gameData)
 		})
 }
 
