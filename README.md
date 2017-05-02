@@ -1,6 +1,6 @@
 
 
-JoclyBoard is a desktop application to play board games. 
+JoclyBoard is a desktop application to play board games, based on the [Jocly](https://github.com/mi-g/jocly) library.
 
 [![alt tag](visuals/screenshots/screenshot1.jpg "JoclyBoard screenshot")](visuals/screenshots/screenshot1-big.jpg)
 
