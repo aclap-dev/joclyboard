@@ -60,7 +60,6 @@ function SetForm(setup) {
 		$(".group-different.player" + which + " input.xtrasec").val(setup.timing.different[which].xtrasec);
 		$(".group-different.player" + which + " input.mps").val(setup.timing.different[which].mps);
 	});
-	debugger;
 }
 
 function GetClock() {

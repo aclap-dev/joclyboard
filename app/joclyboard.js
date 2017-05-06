@@ -191,27 +191,27 @@ class JBMatch {
 			self.actionReject = reject;
 			self.match.getTurn()
 				.then((turn) => {
-					return Promise.all([turn, self.match.otherPlayer(turn),self.match.save()]);
+					return Promise.all([turn, self.match.otherPlayer(turn), self.match.save()]);
 				})
-				.then(([turn, otherTurn,gameData]) => {
+				.then(([turn, otherTurn, gameData]) => {
 					if (self.clock) {
 						if (self.clock.turn != turn) {
 							var now = Date.now();
 							if (self.clock.turn == otherTurn)
-								if(self.clock.mode == "countdown") {
+								if (self.clock.mode == "countdown") {
 									self.clock[otherTurn] -= now - self.clock.t0;
-									if(self.clock["xtrasec_"+otherTurn] && 
-										gameData.playedMoves.length>0 &&
-										self.clock["last_xtrasec_"+otherTurn]!==gameData.playedMoves.length) {
-										self.clock[otherTurn] += self.clock["xtrasec_"+otherTurn] * 1000;
-										self.clock["last_xtrasec_"+otherTurn] = gameData.playedMoves.length;
+									if (self.clock["xtrasec_" + otherTurn] &&
+										gameData.playedMoves.length > 0 &&
+										self.clock["last_xtrasec_" + otherTurn] !== gameData.playedMoves.length) {
+										self.clock[otherTurn] += self.clock["xtrasec_" + otherTurn] * 1000;
+										self.clock["last_xtrasec_" + otherTurn] = gameData.playedMoves.length;
 									}
-									if(self.clock["mps_"+otherTurn] && 
-										gameData.playedMoves.length>1 &&
-										(Math.floor(gameData.playedMoves.length/2) % self.clock["mps_"+otherTurn]) == 0 &&
-										self.clock["last_mps_"+otherTurn]!==gameData.playedMoves.length) {
+									if (self.clock["mps_" + otherTurn] &&
+										gameData.playedMoves.length > 1 &&
+										(Math.floor(gameData.playedMoves.length / 2) % self.clock["mps_" + otherTurn]) === 0 &&
+										self.clock["last_mps_" + otherTurn] !== gameData.playedMoves.length) {
 										self.clock[otherTurn] += self.originalClock[otherTurn];
-										self.clock["last_mps_"+otherTurn] = gameData.playedMoves.length;
+										self.clock["last_mps_" + otherTurn] = gameData.playedMoves.length;
 									}
 								} else
 									self.clock[otherTurn] += now - self.clock.t0;
@@ -249,7 +249,7 @@ class JBMatch {
 				if (result[1].finished) {
 					if (self.clock.turn) {
 						var now = Date.now();
-						if(self.clock.mode == "countdown")
+						if (self.clock.mode == "countdown")
 							self.clock[self.clock.turn] -= now - self.clock.t0;
 						else
 							self.clock[self.clock.turn] += now - self.clock.t0;
@@ -913,7 +913,7 @@ controller.openSaveTemplate = (matchId) => {
 
 controller.saveTemplate = (matchId, templateName) => {
 	return controller.getTemplateData(matchId)
-		.then(([match,template])=>{
+		.then(([match, template]) => {
 			var templates = settings.get("templates", {});
 			template.templateName = templateName
 			match.templateName = templateName;
@@ -956,7 +956,7 @@ controller.getTemplateData = (matchId) => {
 					y: position[1]
 				}
 			}
-			return [match,template];
+			return [match, template];
 		});
 }
 
@@ -988,12 +988,12 @@ controller.playTemplate = (templateName) => {
 	return controller.playTemplateData(template);
 }
 
-controller.playTemplateData = (template,gameData) => {
+controller.playTemplateData = (template, gameData) => {
 	var jbMatch = new JBMatch(template.gameName);
 
 	return jbMatch.init(template.clock)
 		.then(() => {
-			if(gameData)
+			if (gameData)
 				return jbMatch.match.load(gameData)
 		})
 		.then(() => {
@@ -1306,11 +1306,11 @@ controller.showBoardState = (gameName, matchId) => {
 
 controller.cloneMatch = (matchId) => {
 	return controller.getTemplateData(matchId)
-		.then(([match,template])=>{
-			return Promise.all([match.match.save(),template])
+		.then(([match, template]) => {
+			return Promise.all([match.match.save(), template])
 		})
-		.then(([gameData,template])=>{
-			return controller.playTemplateData(template,gameData)
+		.then(([gameData, template]) => {
+			return controller.playTemplateData(template, gameData)
 		})
 }
 
@@ -1369,7 +1369,7 @@ electron.app.on('ready', () => {
 });
 
 if (argv["debug-content"])
-	require("electron-debug")({enabled:true});
+	require("electron-debug")({ enabled: true });
 
 if (argv["rpc-debug-level"])
 	rpc.setDebug(parseInt(argv["rpc-debug-level"]));
