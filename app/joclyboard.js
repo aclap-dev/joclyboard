@@ -55,10 +55,13 @@ class JBMatch {
 
 	init(clock) {
 		var self = this;
-		if (clock) {
-			self.clock = Object.assign({}, clock);
-			self.originalClock = Object.assign({}, clock);
+		clock = clock || {
+			mode: "countup",
+			"1": 0,
+			"-1": 0
 		}
+		self.clock = Object.assign({}, clock);
+		self.originalClock = Object.assign({}, clock);
 		this.lifePromise = new Promise(function (resolve, reject) {
 			self.endLife = resolve;
 		});
@@ -188,14 +191,30 @@ class JBMatch {
 			self.actionReject = reject;
 			self.match.getTurn()
 				.then((turn) => {
-					return Promise.all([turn, self.match.otherPlayer(turn)]);
+					return Promise.all([turn, self.match.otherPlayer(turn),self.match.save()]);
 				})
-				.then(([turn, otherTurn]) => {
+				.then(([turn, otherTurn,gameData]) => {
 					if (self.clock) {
 						if (self.clock.turn != turn) {
 							var now = Date.now();
 							if (self.clock.turn == otherTurn)
-								self.clock[otherTurn] -= now - self.clock.t0;
+								if(self.clock.mode == "countdown") {
+									self.clock[otherTurn] -= now - self.clock.t0;
+									if(self.clock["xtrasec_"+otherTurn] && 
+										gameData.playedMoves.length>0 &&
+										self.clock["last_xtrasec_"+otherTurn]!==gameData.playedMoves.length) {
+										self.clock[otherTurn] += self.clock["xtrasec_"+otherTurn] * 1000;
+										self.clock["last_xtrasec_"+otherTurn] = gameData.playedMoves.length;
+									}
+									if(self.clock["mps_"+otherTurn] && 
+										gameData.playedMoves.length>1 &&
+										(Math.floor(gameData.playedMoves.length/2) % self.clock["mps_"+otherTurn]) == 0 &&
+										self.clock["last_mps_"+otherTurn]!==gameData.playedMoves.length) {
+										self.clock[otherTurn] += self.originalClock[otherTurn];
+										self.clock["last_mps_"+otherTurn] = gameData.playedMoves.length;
+									}
+								} else
+									self.clock[otherTurn] += now - self.clock.t0;
 							self.clock.t0 = now;
 							self.clock.turn = turn;
 							if (self.clockWin)
@@ -230,7 +249,10 @@ class JBMatch {
 				if (result[1].finished) {
 					if (self.clock.turn) {
 						var now = Date.now();
-						self.clock[self.clock.turn] -= now - self.clock.t0;
+						if(self.clock.mode == "countdown")
+							self.clock[self.clock.turn] -= now - self.clock.t0;
+						else
+							self.clock[self.clock.turn] += now - self.clock.t0;
 						delete self.clock.turn;
 						if (self.clockWin)
 							rpc.call(self.clockWin, "updateClock")
@@ -272,7 +294,7 @@ class JBMatch {
 		return self.match.save()
 			.then((gameData) => {
 				var level = player.level;
-				if (self.clock) {
+				if (self.clock && self.clock.mode == "countdown") {
 					if (level.ai == "uct") {
 						level = Object.assign({}, level);
 						delete level.maxNodes;
@@ -1125,7 +1147,7 @@ controller.replayLastMove = (matchId) => {
 controller.newClockedMatch = (gameName) => {
 	utils.createWindowPromise(`file://${__dirname}/content/clock-setup.html?game=${gameName}`, {
 		width: 400,
-		height: 250
+		height: 360
 	});
 }
 
@@ -1404,7 +1426,7 @@ if (argv["list-templates"]) {
 	templateList.forEach((template) => {
 		console.info(template.templateName, ":", template.gameName,
 			template.players[Jocly.PLAYER_A].type + "/" + template.players[Jocly.PLAYER_B].type,
-			template.clock ? template.clock[Jocly.PLAYER_A] + "/" + template.clock[Jocly.PLAYER_B] : "no clock");
+			template.clock && template.clock.mode == "countdown" ? template.clock[Jocly.PLAYER_A] + "/" + template.clock[Jocly.PLAYER_B] : "no clock");
 	});
 	process.exit(0);
 }
