@@ -32,20 +32,41 @@
 				<div class="form-group group-same hidden">
 					<label>Time</label>
 					<div class="form-horizontal">
-						<input type="text" class="form-control"/>
-						<select class="form-control">
+						<input type="text" class="form-control time"/>
+						<select class="form-control unit">
     						<option value="1">seconds</option>
     						<option value="60">minutes</option>
     						<option value="3600">hours</option>
 						</select>
 					</div>
+				</div>		
+
+				<div class="form-group group-same hidden">
+					<label>Extra time per move</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control xtrasec"/>
+						<div>seconds</div>
+					</div>
 				</div>				
 
-				<div class="form-group group-different hidden">
+				<div class="form-group group-same hidden">
+					<label>Moves per session</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control mps"/>
+						<div>moves</div>
+					</div>
+				</div>
+
+				<div class="form-group group-different hidden player-sel">
+					<div class="player-selector player0">Player A</div>
+					<div class="player-selector player1">Player B</div>
+				</div>				
+
+				<div class="form-group group-different player0 hidden">
 					<label>Time Player A</label>
 					<div class="form-horizontal">
-						<input type="text" class="form-control"/>
-						<select class="form-control">
+						<input type="text" class="form-control time"/>
+						<select class="form-control unit">
     						<option value="1">seconds</option>
     						<option value="60">minutes</option>
     						<option value="3600">hours</option>
@@ -53,15 +74,47 @@
 					</div>
 				</div>				
 
-				<div class="form-group group-different hidden">
+				<div class="form-group group-different player0 hidden">
+					<label>Extra time per move</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control xtrasec"/>
+						<div>seconds</div>
+					</div>
+				</div>				
+
+				<div class="form-group group-different player0 hidden">
+					<label>Moves per session</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control mps"/>
+						<div>moves</div>
+					</div>
+				</div>				
+
+				<div class="form-group group-different player1 hidden">
 					<label>Time Player B</label>
 					<div class="form-horizontal">
-						<input type="text" class="form-control"/>
-						<select class="form-control">
+						<input type="text" class="form-control time"/>
+						<select class="form-control unit">
     						<option value="1">seconds</option>
     						<option value="60">minutes</option>
     						<option value="3600">hours</option>
 						</select>
+					</div>
+				</div>				
+
+				<div class="form-group group-different player1 hidden">
+					<label>Extra time per move</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control xtrasec"/>
+						<div>seconds</div>
+					</div>
+				</div>				
+
+				<div class="form-group group-different player1 hidden">
+					<label>Moves per session</label>
+					<div class="form-horizontal">
+						<input type="text" class="form-control mps"/>
+						<div>moves</div>
 					</div>
 				</div>				
 

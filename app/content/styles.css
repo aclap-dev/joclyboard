@@ -352,6 +352,21 @@
 	margin-top: 12px;
 }
 
+.clock-setup-content .player-selector {
+	padding: 6px 12px;
+	background-color: #fff;
+	border-radius: 4px;
+	border: 1px solid #eee;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.clock-setup-content .player-selector.highlighted {
+	background-color: #222;
+	color: #fff;
+	cursor: auto;
+}
+
 .clock-setup-content .form-horizontal > * {
 	display: inline-block;
 	width: 49%;

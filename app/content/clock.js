@@ -50,7 +50,7 @@ function TimeFormat(ms) {
 	mins = mins % 60;
 	secs = secs % 60;
 	if (hours > 0)
-		text = hours + ":" + (mins < 10 ? "0" : "");
+		text += hours + ":" + (mins < 10 ? "0" : "");
 	text += mins + ":" + (secs < 10 ? "0" : "");
 	text += secs;
 	return text;
@@ -65,18 +65,21 @@ function UpdateClock() {
 				$("#clock-player" + which).text(players[which].name);
 				if (clock && clock.turn == which)
 					$("#clock-player" + which + ",#clock-time" + which).addClass("turn");
-				Update();
 			});
+			Update();
 		});
 }
 
 function Update() {
 	[Jocly.PLAYER_A, Jocly.PLAYER_B].forEach((which) => {
 		var timer;
-		if (clock && clock[which]) {
+		if (clock && typeof clock[which] != "undefined") {
 			var ms = clock[which];
 			if (clock.turn == which)
-				ms -= Date.now() - clock.t0;
+				if (clock.mode == "countdown")
+					ms -= Date.now() - clock.t0;
+				else
+					ms += Date.now() - clock.t0;
 			timer = TimeFormat(ms);
 		} else
 			timer = "--:--";

@@ -33,29 +33,42 @@ var gameName = (function () {
 	return m && m[1] || "classic-chess";
 })();
 
+var selectedPlayer = 0;
+
 function UpdateSymmetry(symmetry) {
 	$(".form-group").hide();
-	$(".form-group.group-" + symmetry).show();
+	if (symmetry == "same")
+		$(".form-group.group-same").show();
+	else {
+		$(".form-group.group-different.player-sel").show();
+		$(".form-group.group-different.player-sel .player-selector").removeClass("highlighted");
+		$(".form-group.group-different.player-sel .player-selector.player" + selectedPlayer).addClass("highlighted");
+		$(".form-group.group-different.player" + selectedPlayer).show();
+	}
 }
 
 function SetForm(setup) {
 	$(".symmetry").val(setup.symmetry);
 	UpdateSymmetry(setup.symmetry);
-	$(".group-same input").val(setup.timing.same.value);
-	$(".group-same select").val(setup.timing.same.factor);
+	$(".group-same input.time").val(setup.timing.same.value);
+	$(".group-same select.unit").val(setup.timing.same.factor);
+	$(".group-same input.xtrasec").val(setup.timing.same.xtrasec);
+	$(".group-same input.mps").val(setup.timing.same.mps);
 	[0, 1].forEach((which) => {
-		var group = $($(".group-different")[which]);
-		group.find("input").val(setup.timing.different[which].value);
-		group.find("select").val(setup.timing.different[which].factor);
+		$(".group-different.player" + which + " input.time").val(setup.timing.different[which].value);
+		$(".group-different.player" + which + " select.unit").val(setup.timing.different[which].factor);
+		$(".group-different.player" + which + " input.xtrasec").val(setup.timing.different[which].xtrasec);
+		$(".group-different.player" + which + " input.mps").val(setup.timing.different[which].mps);
 	});
+	debugger;
 }
 
 function GetClock() {
 	function GetTiming(group) {
-		var value = parseInt(group.find("input").val());
+		var value = parseInt(group.find("input.time").val());
 		if (isNaN(value))
 			throw new Error();
-		return 1000 * value * parseInt(group.find("select").val());
+		return 1000 * value * parseInt(group.find("select.unit").val());
 	}
 
 	var clock = {
@@ -63,11 +76,18 @@ function GetClock() {
 	};
 	var symmetry = $(".symmetry").val();
 	try {
-		if (symmetry == "same")
+		if (symmetry == "same") {
 			clock[Jocly.PLAYER_A] = clock[Jocly.PLAYER_B] = GetTiming($(".group-same"));
+			clock["xtrasec_" + Jocly.PLAYER_A] = clock["xtrasec_" + Jocly.PLAYER_B] = parseInt($(".group-same input.xtrasec").val()) || 0;
+			clock["mps_" + Jocly.PLAYER_A] = clock["mps_" + Jocly.PLAYER_B] = parseInt($(".group-same input.mps").val()) || 0;
+		}
 		else {
-			clock[Jocly.PLAYER_A] = GetTiming($($(".group-different")[0]));
-			clock[Jocly.PLAYER_B] = GetTiming($($(".group-different")[1]));
+			clock[Jocly.PLAYER_A] = GetTiming($(".group-different.player0"));
+			clock["xtrasec_" + Jocly.PLAYER_A] = parseInt($(".group-different.player0 input.xtrasec").val()) || 0;
+			clock["mps_" + Jocly.PLAYER_A] = parseInt($(".group-different.player0 input.mps").val()) || 0;
+			clock[Jocly.PLAYER_B] = GetTiming($(".group-different.player1"));
+			clock["xtrasec_" + Jocly.PLAYER_B] = parseInt($(".group-different.player1 input.xtrasec").val()) || 0;
+			clock["mps_" + Jocly.PLAYER_B] = parseInt($(".group-different.player1 input.mps").val()) || 0;
 		}
 		return clock;
 	} catch (e) {
@@ -80,6 +100,10 @@ $(document).ready(() => {
 		.then((config) => {
 			jbwu.init(config.model["title-en"] + " clock setup");
 		});
+	$(".player-selector").on("click", function () {
+		selectedPlayer = $(this).hasClass("player0") ? 0 : 1;
+		UpdateSymmetry();
+	});
 	$("#button-save").on("click", () => {
 		var clock = GetClock();
 		if (clock) {
@@ -87,15 +111,21 @@ $(document).ready(() => {
 				symmetry: $(".symmetry").val(),
 				timing: {
 					same: {
-						value: $(".group-same input").val(),
-						factor: $(".group-same select").val()
+						value: $(".group-same input.time").val(),
+						factor: $(".group-same select.unit").val(),
+						xtrasec: $(".group-same input.xtrasec").val(),
+						mps: $(".group-same input.mps").val()
 					},
 					different: [{
-						value: $($(".group-different")[0]).find("input").val(),
-						factor: $($(".group-different")[0]).find("select").val()
+						value: $(".group-different.player0 input.time").val(),
+						factor: $(".group-different.player0 select.unit").val(),
+						xtrasec: $(".group-different.player0 input.xtrasec").val(),
+						mps: $(".group-different.player0 input.mps").val()
 					}, {
-						value: $($(".group-different")[1]).find("input").val(),
-						factor: $($(".group-different")[1]).find("select").val()
+						value: $(".group-different.player1 input.time").val(),
+						factor: $(".group-different.player1 select.unit").val(),
+						xtrasec: $(".group-different.player1 input.xtrasec").val(),
+						mps: $(".group-different.player1 input.mps").val()
 					}]
 				}
 			})
@@ -111,18 +141,23 @@ $(document).ready(() => {
 	var setup = settings.get('clock', {
 		symmetry: "same",
 		timing: {
-			same: {
-				value: 5,
-				factor: 60
-			},
-			different: [{
-				value: 5,
-				factor: 60
-			}, {
-				value: 5,
-				factor: 60
-			}]
+			same: {},
+			different: [{}, {}]
 		}
+	});
+	Object.assign(setup.timing.same, {
+		value: 5,
+		factor: 60,
+		xtrasec: 0,
+		mps: 0
+	}, setup.timing.same);
+	[0, 1].forEach((which) => {
+		Object.assign({}, {
+			value: 5,
+			factor: 60,
+			xtrasec: 0,
+			mps: 0
+		}, setup.timing.different[which]);
 	});
 	SetForm(setup);
 	$(".clock-setup-content").on("change keydown paste input", () => {
