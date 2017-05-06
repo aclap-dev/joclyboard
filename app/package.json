@@ -29,7 +29,7 @@
     "dxp"
   ],
   "dependencies": {
-    "jocly": "^0.9.3",
+    "jocly": "^0.9.4",
     "electron-debug": "^1.1.0",
     "electron-is-dev": "^0.1.2",
     "electron-settings": "^3.0.14",
