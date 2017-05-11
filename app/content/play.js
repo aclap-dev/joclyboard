@@ -142,6 +142,18 @@ $(document).ready(() => {
 			$("#button-clone").on("click", () => {
 				rpc.call("cloneMatch", matchId);
 			});
+			$("#button-snapshot").on("click", () => {
+				match.viewControl("takeSnapshot")
+					.then((snapshot)=>{
+						var a = document.createElement("a");
+						a.href = snapshot;
+						a.setAttribute("download",gameName+".png");
+						a.click();
+					})
+					.catch((error)=>{
+						console.warn("Snapshot error:",error);
+					});
+			});
 
 			UpdatePause();
 
