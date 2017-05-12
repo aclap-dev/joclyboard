@@ -1460,6 +1460,8 @@ Command line options:
   --no-autoupdate : do not check for updates
   --debug-content : windows have debugger
   --rpc-debug-level <level> : trace rpc calls
+  --get [param] : show parameter value
+  --set <param>=<value> : set parameter value. <value> is a JSON expression (may require quotes)
 
 Licensed under AGPL v3.0
 `
