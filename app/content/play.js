@@ -48,6 +48,8 @@ var viewOptions = (function () {
 })();
 
 var match;
+var videoRecording = null;
+var lastRecordedFrameT;
 
 $(document).ready(() => {
 	Jocly.getGameConfig(gameName)
@@ -144,16 +146,18 @@ $(document).ready(() => {
 			});
 			$("#button-snapshot").on("click", () => {
 				match.viewControl("takeSnapshot")
-					.then((snapshot)=>{
+					.then((snapshot) => {
 						var a = document.createElement("a");
 						a.href = snapshot;
-						a.setAttribute("download",gameName+".png");
+						a.setAttribute("download", gameName + ".png");
 						a.click();
 					})
-					.catch((error)=>{
-						console.warn("Snapshot error:",error);
+					.catch((error) => {
+						console.warn("Snapshot error:", error);
 					});
 			});
+			$("#button-video").on("click", StartRecording);
+			$("#button-stop-video").on("click", StopRecording);
 
 			UpdatePause();
 
@@ -264,3 +268,37 @@ rpc.listen({
 		$("#board-footer-text").text(text);
 	}
 });
+
+function RecordFrame() {
+	if (videoRecording)
+		match.viewControl("takeSnapshot", {
+			format: "jpeg"
+		})
+			.then((snapshot) => {
+				rpc.call("recordFrame", matchId, snapshot)
+					.then(() => {
+						var t0 = window.performance.now();
+						var timeout = Math.max(0, 1000 / 30 - (t0 - lastRecordedFrameT));
+						lastRecordedFrameT = t0;
+						setTimeout(RecordFrame, timeout);
+					})
+			})
+}
+
+function StopRecording() {
+	if (videoRecording) {
+		videoRecording = null;
+		rpc.call("stopRecording", matchId);
+		$("#button-stop-video").hide();
+	}
+}
+
+function StartRecording() {
+	lastRecordedFrameT = 0;
+	rpc.call("startRecording", matchId)
+		.then(() => {
+			$("#button-stop-video").show();
+			videoRecording = true;
+			setTimeout(RecordFrame, 0);
+		})
+}

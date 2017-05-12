@@ -26,7 +26,9 @@
  */
 const electron = require('electron');
 const settings = require('electron-settings');
+const path = require('path');
 const Jocly = require("jocly");
+const mjpeg = require("mp4-mjpeg");
 const rpc = require("./rpc");
 const utils = require("./joclyboard-utils");
 const jbEngines = require("./joclyboard-engines");
@@ -711,10 +713,58 @@ class JBMatch {
 				delete self[win];
 			}
 		});
-		return self.destroyEngines()
-			.then(() => {
-				self.endLife();
+		var promise = Promise.resolve();
+		if (self.videoRecorder)
+			promise = promise.then(() => {
+				return self.stopRecording();
 			});
+		return promise.then(() => {
+			return self.destroyEngines()
+				.then(() => {
+					self.endLife();
+				})
+		})
+	}
+
+	startRecording() {
+		var self = this;
+		return new Promise((resolve, reject) => {
+			electron.dialog.showSaveDialog({
+				title: "Output video file",
+				defaultPath: path.join(settings.get("video-path", "."), self.gameName + ".mp4"),
+				buttonLabel: "Start recording"
+			}, (fileName) => {
+				if (!fileName)
+					return reject(new Error("Aborted"));
+				settings.set("video-path", path.dirname(fileName));
+				mjpeg({
+					fileName: fileName
+				})
+					.then((videoRecorder) => {
+						self.videoRecorder = videoRecorder;
+						resolve();
+					})
+					.catch((err) => {
+						reject(err);
+					})
+			})
+		})
+	}
+
+	stopRecording() {
+		var self = this;
+		if (!self.videoRecorder)
+			return Promise.reject(new Error("Not recording"));
+		var videoRecorder = self.videoRecorder;
+		delete self.videoRecorder;
+		return videoRecorder.finalize();
+	}
+
+	recordFrame(frame) {
+		var self = this;
+		if (!self.videoRecorder)
+			return Promise.reject(new Error("Not recording"));
+		return self.videoRecorder.appendImageDataUrl(frame);
 	}
 
 }
@@ -1311,6 +1361,27 @@ controller.cloneMatch = (matchId) => {
 		})
 		.then(([gameData, template]) => {
 			return controller.playTemplateData(template, gameData)
+		})
+}
+
+controller.startRecording = (matchId) => {
+	return GetMatch(matchId)
+		.then((match) => {
+			return match.startRecording();
+		})
+}
+
+controller.stopRecording = (matchId) => {
+	return GetMatch(matchId)
+		.then((match) => {
+			return match.stopRecording();
+		})
+}
+
+controller.recordFrame = (matchId, frame) => {
+	return GetMatch(matchId)
+		.then((match) => {
+			return match.recordFrame(frame);
 		})
 }
 

@@ -54,6 +54,10 @@
 	margin-right: 64px;
 }
 
+.game-zone #button-stop-video.btn .icon {
+	color: #f00;
+}
+
 .game-area {
 	height: 100%;
 	width: 100%;
