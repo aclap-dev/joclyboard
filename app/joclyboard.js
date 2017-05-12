@@ -738,8 +738,10 @@ class JBMatch {
 					return reject(new Error("Aborted"));
 				settings.set("video-path", path.dirname(fileName));
 				mjpeg({
-					fileName: fileName
-				})
+						fileName: fileName,
+						ignoreIdenticalFrames: settings.get("video-record:ignoreIdenticalFrames",30),
+						reuseLastFrame: settings.get("video-record:reuseLastFrame",true)
+					})
 					.then((videoRecorder) => {
 						self.videoRecorder = videoRecorder;
 						resolve();
