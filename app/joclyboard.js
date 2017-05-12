@@ -900,7 +900,7 @@ controller.getPlayersInfo = (matchId) => {
 					}
 				});
 			var levels = config.model.levels.map((level) => level.label);
-			if (match.clock)
+			if (match.clock && match.clock.mode=="countdown")
 				levels = ["Auto"];
 			return ({
 				players: match.getPlayers(),
