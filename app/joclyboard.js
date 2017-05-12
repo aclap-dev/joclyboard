@@ -900,7 +900,7 @@ controller.getPlayersInfo = (matchId) => {
 					}
 				});
 			var levels = config.model.levels.map((level) => level.label);
-			if (match.clock && match.clock.mode=="countdown")
+			if (match.clock && match.clock.mode == "countdown")
 				levels = ["Auto"];
 			return ({
 				players: match.getPlayers(),
@@ -1499,5 +1499,33 @@ if (argv["list-templates"]) {
 			template.players[Jocly.PLAYER_A].type + "/" + template.players[Jocly.PLAYER_B].type,
 			template.clock && template.clock.mode == "countdown" ? template.clock[Jocly.PLAYER_A] + "/" + template.clock[Jocly.PLAYER_B] : "no clock");
 	});
+	process.exit(0);
+}
+
+if (argv.get === true) {
+	Object.keys(settings.getAll()).forEach((paramName) => {
+		console.info("  ", paramName, ":", JSON.stringify(settings.get(paramName)));
+	});
+	process.exit(0);
+} else if (argv.get) {
+	if (argv.get in settings.getAll())
+		console.info("  ", argv.get, ":", JSON.stringify(settings.get(argv.get)));
+	else
+		console.info("Parameter '" + argv.get + "' is not defined");
+	process.exit(0);
+}
+
+if (typeof argv.set == "string") {
+	let m = /^(.+?)=(.*)$/.exec(argv.set);
+	if (!m)
+		console.info("Usage: --set param-name=json-param-value");
+	else {
+		try {
+			let value = JSON.parse(m[2]);
+			settings.set(m[1], value);
+		} catch (e) {
+			console.info("parameter is not valid json");
+		}
+	}
 	process.exit(0);
 }
