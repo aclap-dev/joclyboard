@@ -272,7 +272,8 @@ rpc.listen({
 function RecordFrame() {
 	if (videoRecording)
 		match.viewControl("takeSnapshot", {
-			format: "jpeg"
+			format: "jpeg",
+			quality: settings.get("video-record:quality",undefined)
 		})
 			.then((snapshot) => {
 				rpc.call("recordFrame", matchId, snapshot)
