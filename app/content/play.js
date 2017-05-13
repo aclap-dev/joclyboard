@@ -276,14 +276,6 @@ function RecordFrame() {
 		})
 			.then((snapshot) => {
 				rpc.call("recordFrame", matchId, snapshot)
-					/*
-					.then(() => {
-						var t0 = window.performance.now();
-						var timeout = Math.max(0, 1000 / 30 - (t0 - lastRecordedFrameT));
-						lastRecordedFrameT = t0;
-						setTimeout(RecordFrame, timeout);
-					})
-					*/
 			})
 }
 
@@ -301,7 +293,6 @@ function StartRecording() {
 	rpc.call("startRecording", matchId)
 		.then(() => {
 			$("#button-stop-video").show();
-			//videoRecording = true;
 			videoRecording = setInterval(RecordFrame, 1000/30);
 		})
 }
