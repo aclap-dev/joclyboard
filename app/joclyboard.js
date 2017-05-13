@@ -678,7 +678,7 @@ class JBMatch {
 						self.match.pickMove(prettyMoves[index])
 							.then((move) => {
 								if (!move)
-									return reject(new Error("Invalid move " + prettyMoves[index]));
+									throw new Error("Invalid move " + prettyMoves[index]);
 								moves.push(move);
 								index++;
 								return self.match.applyMove(move);
@@ -1285,7 +1285,10 @@ controller.openBookMatch = (gameName, matchData) => {
 
 controller.bookHistoryView = (matchId, spec) => {
 	return MatchAction(matchId, (match) => {
-		return match.loadFromNotation(spec.playedMoves.slice(0, spec.playMove ? spec.current + 1 : spec.current), spec.initial);
+		return match.loadFromNotation(spec.playedMoves.slice(0, spec.playMove ? spec.current + 1 : spec.current), spec.initial)
+			.catch((error)=>{
+				electron.dialog.showErrorBox("Error playing book",error.message);
+			})
 	})
 }
 
