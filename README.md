@@ -19,6 +19,8 @@ Features
 - import/export board position in FEN format
 - clocked games
 - rules available for every game
+- one-click board screenshot picture
+- video capture of the board
 - multi-windows: any number of games can be launched simultaneously
 - templating: ability to save and reuse view options / players / clock mode
 - command line interface to launch directly games in given configuration
