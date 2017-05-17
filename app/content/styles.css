@@ -489,3 +489,113 @@
 	height: auto;
 }
 
+.table-container {
+	display: table;
+	height: 100%;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.table-container > div {
+	display: table-row;
+}
+
+.table-container > div > div {
+	display: table-cell;
+}
+
+.table-container > div > div > div {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.table-container > div > div > div > div {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow-y: auto;
+}
+
+.small-button {
+	display: inline-block;
+	background-color: #080;
+	color: #fff;
+	border-radius: 50%;
+	padding: 4px;
+	margin: 2px 4px;
+	height: 1.3em;
+	width: 1.3em;
+	font-size: .9em;
+	font-weight: 800;
+	line-height: .7em;
+	text-align: center;
+	cursor: pointer;
+}
+
+.small-button:hover {
+	background-color: #0a0;
+	color: #222;
+}
+
+.small-button-red {
+	background-color: #800;
+}
+
+.small-button-red:hover {
+	background-color: #f00;
+}
+
+.small-button-blue {
+	background-color: #008;
+}
+
+.small-button-blue:hover {
+	background-color: #ccf;
+}
+
+.camera-content {
+	background-color: #f5f5f4;
+	padding: 6px;
+	padding: 4px;
+	width: 100%;
+}
+
+.camera-content ul {
+	background-color: #fff;
+	margin: 0 4px;
+	padding: 4px;
+}
+
+.camera-content ul li {
+	list-style-type: none;
+}
+
+.camera-content ul li .small-button-red, .camera-content ul li .small-button-blue {
+	float: right;
+	display: none;
+}
+
+.camera-content ul li:hover .small-button-red, .camera-content ul li:hover .small-button-blue {
+	display: block;
+}
+
+.camera-content .speeds li.selected  {
+	background-color: #217ac0;
+	color: #fff;
+}
+
+.camera-content label {
+	margin: 5px 5px 0 5px;
+}
+
+.camera-content label button {
+	font-size: 8pt;
+	margin: 0 4px;
+}
+
+.camera-content input {
+	margin: 0 5px;
+}

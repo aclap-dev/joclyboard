@@ -144,6 +144,9 @@ $(document).ready(() => {
 			$("#button-clone").on("click", () => {
 				rpc.call("cloneMatch", matchId);
 			});
+			$("#button-camera").on("click", () => {
+				rpc.call("openCameraView", matchId);
+			});
 			$("#button-snapshot").on("click", () => {
 				match.viewControl("takeSnapshot")
 					.then((snapshot) => {
@@ -266,6 +269,12 @@ rpc.listen({
 	},
 	setFooterText: function (text) {
 		$("#board-footer-text").text(text);
+	},
+	getCamera: function () {
+		return match.viewControl("getCamera");
+	},
+	setCamera: function (details) {
+		return match.viewControl("setCamera", details);
 	}
 });
 
@@ -273,7 +282,7 @@ function RecordFrame() {
 	if (videoRecording)
 		match.viewControl("takeSnapshot", {
 			format: "jpeg",
-			quality: settings.get("video-record:quality",undefined)
+			quality: settings.get("video-record:quality", undefined)
 		})
 			.then((snapshot) => {
 				rpc.call("recordFrame", matchId, snapshot)
@@ -294,6 +303,6 @@ function StartRecording() {
 	rpc.call("startRecording", matchId)
 		.then(() => {
 			$("#button-stop-video").show();
-			videoRecording = setInterval(RecordFrame, 1000/30);
+			videoRecording = setInterval(RecordFrame, 1000 / 30);
 		})
 }

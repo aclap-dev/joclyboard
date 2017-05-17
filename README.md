@@ -6,8 +6,8 @@ JoclyBoard is a desktop application to play board games, based on the [Jocly](ht
 
 Features
 ========
-- Open-source
-- Multi-platform: Windows, Mac, Linux
+- open-source
+- multi-platform: Windows, Mac, Linux
 - mouse-controlled 3D game user interface
 - 2D user interface available
 - fully resizeable game windows
@@ -21,6 +21,7 @@ Features
 - rules available for every game
 - one-click board screenshot picture
 - video capture of the board
+- recording and smooth switching between board points of view
 - multi-windows: any number of games can be launched simultaneously
 - templating: ability to save and reuse view options / players / clock mode
 - command line interface to launch directly games in given configuration

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JoclyBoard</title>
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../node_modules/photonkit/dist/css/photon.css">
+	<link rel="stylesheet" href="styles.css">
+
+	<!-- Javascript -->
+	<script>
+		if (typeof module === 'object') { window.module = module; module = undefined; }
+	</script>
+	<script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="../node_modules/jocly/dist/browser/jocly.js" charset="utf-8"></script>
+	<script src="camera-view.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="window window-gray">
+
+		<div class="window-content camera-content">
+
+			<div class="table-container">
+				<div>
+					<div>
+						<div>
+							<div>
+								<div>
+									<label>View points <div class="small-button add-view-point">+</div></label>
+
+									<ul class="view-points">
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<div>
+							<div>
+								<div>
+									<div>
+										<label>Spin</label>
+										<div class="pull-right">
+											<button id="spin-ccw" class="btn btn-default">
+												<span class="icon icon-ccw"></span> 
+											</button>
+											<button id="spin-cw" class="btn btn-default">
+												<span class="icon icon-cw"></span> 
+											</button>
+											<button id="pause" class="btn btn-default">
+												<span class="icon icon-pause"></span> 
+											</button>
+										</div>
+									</div>
+									<label>Speeds <div class="small-button add-speed">+</div></label>
+									<ul class="speeds">
+									</ul>
+									<label>Smooth factor</label>
+									<input id="kalman"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<footer class="toolbar toolbar-footer">
+			<div class="toolbar-actions">
+				<button id="help" class="btn btn-default pull-left">Help</button>
+				<button id="button-close" class="btn btn-default pull-right">Close</button>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>

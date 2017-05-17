@@ -1,7 +1,7 @@
 {
   "name": "JoclyBoard",
   "description": "Desktop application for playing board games",
-  "version": "0.9.6",
+  "version": "0.9.8",
   "productName": "JoclyBoard",
   "homepage": "https://github.com/mi-g/joclyboard",
   "author": {
@@ -30,16 +30,17 @@
   ],
   "dependencies": {
     "byline": "^5.0.0",
+    "dialogs": "^1.1.19",
     "electron-debug": "^1.1.0",
     "electron-is-dev": "^0.1.2",
     "electron-settings": "^3.0.14",
     "electron-updater": "^1.14.2",
     "ffmpeg-stream": "^0.5.0",
-    "jocly": "^0.9.6",
+    "jocly": "^0.9.8",
     "jquery": "^3.2.1",
     "js-yaml": "^3.8.3",
-    "photonkit": "^0.1.2",
-	"mp4-mjpeg": "^0.0.2"
+    "mp4-mjpeg": "^0.0.2",
+    "photonkit": "^0.1.2"
   },
   "devDependencies": {
     "devtron": "^1.4.0"

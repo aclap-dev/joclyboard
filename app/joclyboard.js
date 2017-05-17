@@ -515,6 +515,27 @@ class JBMatch {
 		}
 	}
 
+	openCameraView() {
+		var self = this;
+		if (this.cameraViewWin)
+			this.cameraViewWin.show();
+		else {
+			var winOptions = {
+				onClosed: function () {
+					delete self.cameraViewWin;
+				},
+				persist: "camera-view:" + self.gameName
+			}
+			utils.createWindowPromise(`file://${__dirname}/content/camera-view.html?game=${self.gameName}&id=${self.id}`, {
+				width: 400,
+				height: 220
+			}, winOptions)
+				.then((window) => {
+					self.cameraViewWin = window;
+				});
+		}
+	}
+
 	getHistory() {
 		var self = this;
 		return self.match.getPlayedMoves()
@@ -707,7 +728,7 @@ class JBMatch {
 
 	destroy() {
 		var self = this;
-		["boardWin", "viewOptionsWin", "playersWin", "historyWin", "clockWin", "historyBookWin"].forEach((win) => {
+		["boardWin", "viewOptionsWin", "playersWin", "historyWin", "cameraViewWin", "clockWin", "historyBookWin"].forEach((win) => {
 			if (self[win]) {
 				self[win].close();
 				delete self[win];
@@ -738,10 +759,10 @@ class JBMatch {
 					return reject(new Error("Aborted"));
 				settings.set("video-path", path.dirname(fileName));
 				mjpeg({
-						fileName: fileName,
-						ignoreIdenticalFrames: settings.get("video-record:ignoreIdenticalFrames",30),
-						reuseLastFrame: settings.get("video-record:reuseLastFrame",true)
-					})
+					fileName: fileName,
+					ignoreIdenticalFrames: settings.get("video-record:ignoreIdenticalFrames", 30),
+					reuseLastFrame: settings.get("video-record:reuseLastFrame", true)
+				})
 					.then((videoRecorder) => {
 						self.videoRecorder = videoRecorder;
 						resolve();
@@ -767,6 +788,16 @@ class JBMatch {
 		if (!self.videoRecorder)
 			return Promise.reject(new Error("Not recording"));
 		return self.videoRecorder.appendImageDataUrl(frame);
+	}
+
+	getCamera() {
+		var self = this;
+		return rpc.call(self.boardWin, "getCamera");
+	}
+
+	setCamera(details) {
+		var self = this;
+		return rpc.call(self.boardWin, "setCamera", details);
 	}
 
 }
@@ -1142,6 +1173,13 @@ controller.openHistory = (matchId) => {
 		});
 }
 
+controller.openCameraView = (matchId) => {
+	return GetMatch(matchId)
+		.then((match) => {
+			return match.openCameraView();
+		});
+}
+
 controller.getHistory = (matchId) => {
 	return GetMatch(matchId)
 		.then((match) => {
@@ -1286,8 +1324,8 @@ controller.openBookMatch = (gameName, matchData) => {
 controller.bookHistoryView = (matchId, spec) => {
 	return MatchAction(matchId, (match) => {
 		return match.loadFromNotation(spec.playedMoves.slice(0, spec.playMove ? spec.current + 1 : spec.current), spec.initial)
-			.catch((error)=>{
-				electron.dialog.showErrorBox("Error playing book",error.message);
+			.catch((error) => {
+				electron.dialog.showErrorBox("Error playing book", error.message);
 			})
 	})
 }
@@ -1387,6 +1425,20 @@ controller.recordFrame = (matchId, frame) => {
 	return GetMatch(matchId)
 		.then((match) => {
 			return match.recordFrame(frame);
+		})
+}
+
+controller.getCamera = (matchId) => {
+	return GetMatch(matchId)
+		.then((match) => {
+			return match.getCamera();
+		})
+}
+
+controller.setCamera = (matchId, details) => {
+	return GetMatch(matchId)
+		.then((match) => {
+			return match.setCamera(details);
 		})
 }
 
