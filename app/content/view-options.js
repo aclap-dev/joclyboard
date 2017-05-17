@@ -59,7 +59,7 @@ function UpdateOptions(_viewOptions) {
 	skins.forEach((skin) => {
 		$("<option>").attr("value", skin.name).text(skin.title).appendTo($("#skin select"));
 	});
-	if (options.skin in skins.map((skin) => skin.name))
+	if (skins.map((skin) => skin.name).indexOf(options.skin)>=0)
 		$("#skin select").val(options.skin);
 	else
 		$("#skin select").val(skins[0].name);
