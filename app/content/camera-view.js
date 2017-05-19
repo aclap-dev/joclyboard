@@ -117,7 +117,8 @@ function Spin(direction) {
 	rpc.call("setCamera", matchId, {
 		type: "spin",
 		direction: direction,
-		speed: selectedSpeed
+		speed: selectedSpeed,
+		smooth: parseFloat($("#kalman").val()) || .001
 	})
 		.catch((error) => {
 			dialog.showErrorBox("Setting camera", error.message);
