@@ -599,3 +599,17 @@
 .camera-content input {
 	margin: 0 5px;
 }
+
+.moves-content ul {
+	padding: 8px;
+	margin: 0;
+	width: 100%;
+}
+
+.moves-content li {
+	list-style-type: none;
+}
+
+.moves-content li:hover {
+	background-color: #dcdfe1;
+}

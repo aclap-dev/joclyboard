@@ -191,7 +191,10 @@ class JBMatch {
 		var self = this;
 		var promise = new Promise(function (resolve, reject) {
 			self.actionReject = reject;
-			self.match.getTurn()
+			self.updatePossibleMoves()
+				.then(()=>{
+					return self.match.getTurn()
+				})
 				.then((turn) => {
 					return Promise.all([turn, self.match.otherPlayer(turn), self.match.save()]);
 				})
@@ -247,8 +250,9 @@ class JBMatch {
 		});
 		self.actionPromise = promise;
 		promise = promise.then((result) => {
-			if (self.clock) {
-				if (result[1].finished) {
+			if (result[1].finished) {
+				self.updatePossibleMoves(true)
+				if (self.clock) {
 					if (self.clock.turn) {
 						var now = Date.now();
 						if (self.clock.mode == "countdown")
@@ -279,9 +283,29 @@ class JBMatch {
 			return Promise.reject(new Error("nextMoveHuman: no board window"));
 		return self.match.save()
 			.then((gameData) => {
-				return rpc.call(self.boardWin, "humanTurn", {
-					gameData: gameData
-				});
+				if(self.nextHumanMove) {
+					// got human move input from moves window
+					var move = self.nextHumanMove;
+					delete self.nextHumanMove;
+					var result;
+					return self.match.applyMove(move)
+						.then((_result)=>{
+							result = _result;
+							result.move = move;
+							return self.load(gameData);
+						})
+						.then(()=>{
+							return rpc.call(self.boardWin,"display",{
+								gameData: gameData
+							})
+						})
+						.then(()=>{
+							return result;
+						})
+				} else
+					return rpc.call(self.boardWin, "humanTurn", {
+						gameData: gameData
+					});
 			})
 			.then((result) => {
 				return [result.move, result];
@@ -536,6 +560,51 @@ class JBMatch {
 		}
 	}
 
+	openMoves() {
+		var self = this;
+		if (this.movesWin)
+			this.movesWin.show();
+		else {
+			var winOptions = {
+				onClosed: function () {
+					delete self.movesWin;
+				},
+				persist: "moves:" + self.gameName
+			}
+			utils.createWindowPromise(`file://${__dirname}/content/moves.html?id=${self.id}`, {
+				width: 200,
+				minWidth: 150,
+				height: 350
+			}, winOptions)
+				.then((window) => {
+					self.movesWin = window;
+					self.updatePossibleMoves();
+				});
+		}
+	}
+
+	updatePossibleMoves(clear) {
+		var self = this;
+		if(!self.movesWin)
+			return;
+		return Promise.resolve()
+			.then(()=>{
+				if(clear)
+					return [[],[]];
+				else
+					return self.match.getPossibleMoves()
+						.then((moves)=>{
+							return Promise.all([moves,self.match.getMoveString(moves)]);
+						})
+			})
+			.then(([moves,strMoves])=>{
+				rpc.call(self.movesWin,"updateMoves",{
+					moves: moves,
+					strMoves: strMoves
+				})
+			})
+	}
+
 	getHistory() {
 		var self = this;
 		return self.match.getPlayedMoves()
@@ -644,6 +713,46 @@ class JBMatch {
 			})
 	}
 
+	showMove(move) {
+		var self = this;
+		return self.match.getTurn()
+			.then( (turn) => {
+				if(self.players[turn].type == "human") 
+					return self.cleanAction()
+						.then(() => {
+							return self.match.save()
+						})
+						.then((gameData) => {
+							return rpc.call(self.boardWin, "display", {
+									gameData: gameData
+								})
+								.then(() => {
+									if(move)
+										return rpc.call(self.boardWin, "playMove", {
+											gameData: gameData,
+											move: move
+										})
+									else
+										return self.play();
+								})
+						})
+			})
+	}
+
+	inputMove(move) {
+		var self = this;
+		return self.match.getTurn()
+			.then( (turn) => {
+				if(self.players[turn].type == "human") {
+					return self.cleanAction()
+						.then(()=>{
+							self.nextHumanMove = move;
+							self.play();
+						})
+				}
+			})
+	}
+
 	cleanAction() {
 		var self = this;
 		return new Promise((resolve, reject) => {
@@ -728,7 +837,7 @@ class JBMatch {
 
 	destroy() {
 		var self = this;
-		["boardWin", "viewOptionsWin", "playersWin", "historyWin", "cameraViewWin", "clockWin", "historyBookWin"].forEach((win) => {
+		["boardWin", "viewOptionsWin", "playersWin", "historyWin", "cameraViewWin", "movesWin", "clockWin", "historyBookWin"].forEach((win) => {
 			if (self[win]) {
 				self[win].close();
 				delete self[win];
@@ -1039,6 +1148,16 @@ controller.getTemplateData = (matchId) => {
 					y: position[1]
 				}
 			}
+			if (match.movesWin) {
+				let position = match.movesWin.getPosition();
+				let size = match.movesWin.getSize();
+				template.movesWin = {
+					width: size[0],
+					height: size[1],
+					x: position[0],
+					y: position[1]
+				}
+			}
 			return [match, template];
 		});
 }
@@ -1099,6 +1218,8 @@ controller.playTemplateData = (template, gameData) => {
 				children.push(jbMatch.openHistory(template.historyWin));
 			if (template.clockWin)
 				children.push(jbMatch.openClock(template.clockWin));
+			if (template.movesWin)
+				children.push(jbMatch.openMoves(template.movesWin));
 			return Promise.all(children);
 		})
 		.then(() => {
@@ -1180,6 +1301,13 @@ controller.openCameraView = (matchId) => {
 		});
 }
 
+controller.openMoves = (matchId) => {
+	return GetMatch(matchId)
+		.then((match) => {
+			return match.openMoves();
+		});
+}
+
 controller.getHistory = (matchId) => {
 	return GetMatch(matchId)
 		.then((match) => {
@@ -1233,6 +1361,18 @@ controller.replayLastMove = (matchId) => {
 	})
 }
 
+controller.showMove = (matchId, move) => {
+	return GetMatch(matchId)
+		.then((match) => {
+			return match.showMove(move)
+		})
+}
+
+controller.inputMove = (matchId, move) => {
+	return MatchAction(matchId, (match) => {
+		return match.inputMove(move)
+	})
+}
 
 controller.newClockedMatch = (gameName) => {
 	utils.createWindowPromise(`file://${__dirname}/content/clock-setup.html?game=${gameName}`, {

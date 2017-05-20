@@ -147,6 +147,9 @@ $(document).ready(() => {
 			$("#button-camera").on("click", () => {
 				rpc.call("openCameraView", matchId);
 			});
+			$("#button-moves").on("click", () => {
+				rpc.call("openMoves", matchId);
+			});
 			$("#button-snapshot").on("click", () => {
 				match.viewControl("takeSnapshot")
 					.then((snapshot) => {
