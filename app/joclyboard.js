@@ -192,7 +192,7 @@ class JBMatch {
 		var promise = new Promise(function (resolve, reject) {
 			self.actionReject = reject;
 			self.updatePossibleMoves()
-				.then(()=>{
+				.then(() => {
 					return self.match.getTurn()
 				})
 				.then((turn) => {
@@ -283,23 +283,23 @@ class JBMatch {
 			return Promise.reject(new Error("nextMoveHuman: no board window"));
 		return self.match.save()
 			.then((gameData) => {
-				if(self.nextHumanMove) {
+				if (self.nextHumanMove) {
 					// got human move input from moves window
 					var move = self.nextHumanMove;
 					delete self.nextHumanMove;
 					var result;
 					return self.match.applyMove(move)
-						.then((_result)=>{
+						.then((_result) => {
 							result = _result;
 							result.move = move;
 							return self.load(gameData);
 						})
-						.then(()=>{
-							return rpc.call(self.boardWin,"display",{
+						.then(() => {
+							return rpc.call(self.boardWin, "display", {
 								gameData: gameData
 							})
 						})
-						.then(()=>{
+						.then(() => {
 							return result;
 						})
 				} else
@@ -585,20 +585,20 @@ class JBMatch {
 
 	updatePossibleMoves(clear) {
 		var self = this;
-		if(!self.movesWin)
+		if (!self.movesWin)
 			return;
 		return Promise.resolve()
-			.then(()=>{
-				if(clear)
-					return [[],[]];
+			.then(() => {
+				if (clear)
+					return [[], []];
 				else
 					return self.match.getPossibleMoves()
-						.then((moves)=>{
-							return Promise.all([moves,self.match.getMoveString(moves)]);
+						.then((moves) => {
+							return Promise.all([moves, self.match.getMoveString(moves)]);
 						})
 			})
-			.then(([moves,strMoves])=>{
-				rpc.call(self.movesWin,"updateMoves",{
+			.then(([moves, strMoves]) => {
+				rpc.call(self.movesWin, "updateMoves", {
 					moves: moves,
 					strMoves: strMoves
 				})
@@ -716,18 +716,18 @@ class JBMatch {
 	showMove(move) {
 		var self = this;
 		return self.match.getTurn()
-			.then( (turn) => {
-				if(self.players[turn].type == "human") 
+			.then((turn) => {
+				if (self.players[turn].type == "human")
 					return self.cleanAction()
 						.then(() => {
 							return self.match.save()
 						})
 						.then((gameData) => {
 							return rpc.call(self.boardWin, "display", {
-									gameData: gameData
-								})
+								gameData: gameData
+							})
 								.then(() => {
-									if(move)
+									if (move)
 										return rpc.call(self.boardWin, "playMove", {
 											gameData: gameData,
 											move: move
@@ -742,10 +742,10 @@ class JBMatch {
 	inputMove(move) {
 		var self = this;
 		return self.match.getTurn()
-			.then( (turn) => {
-				if(self.players[turn].type == "human") {
+			.then((turn) => {
+				if (self.players[turn].type == "human") {
 					return self.cleanAction()
-						.then(()=>{
+						.then(() => {
 							self.nextHumanMove = move;
 							self.play();
 						})

@@ -36,7 +36,7 @@ var moves = [];
 var timer = null;
 
 function ClearTimer() {
-	if(timer) {
+	if (timer) {
 		clearTimeout(timer);
 		timer = null;
 	}
@@ -49,9 +49,9 @@ function ShowMove(index) {
 
 function UnshowMove() {
 	ClearTimer();
-	timer = setTimeout(()=>{
+	timer = setTimeout(() => {
 		rpc.call("showMove", matchId, null);
-	},100);	
+	}, 100);
 }
 
 rpc.listen({
