@@ -52,7 +52,7 @@ function SaveViewPoints() {
 }
 
 function AddViewPoint(camera, id, title) {
-	var id = id || viewPointsIndex++;
+	id = id || viewPointsIndex++;
 	var viewPoint = {
 		id: id,
 		title: title || "View point #" + id,
@@ -99,7 +99,7 @@ function AddViewPoint(camera, id, title) {
 				type: "move",
 				camera: viewPoint.camera,
 				speed: selectedSpeed,
-				smooth: parseFloat($("#kalman").val()) || .001
+				smooth: parseFloat($("#kalman").val()) || 0.001
 			})
 				.catch((error) => {
 					dialog.showErrorBox("Setting camera", error.message);
@@ -118,7 +118,7 @@ function Spin(direction) {
 		type: "spin",
 		direction: direction,
 		speed: selectedSpeed,
-		smooth: parseFloat($("#kalman").val()) || .001
+		smooth: parseFloat($("#kalman").val()) || 0.001
 	})
 		.catch((error) => {
 			dialog.showErrorBox("Setting camera", error.message);
@@ -126,7 +126,7 @@ function Spin(direction) {
 }
 
 function AddSpeed(speedValue, id) {
-	var id = id || speedsIndex++;
+	id = id || speedsIndex++;
 	var speed = {
 		id: id,
 		title: speedValue + " seconds",
@@ -186,7 +186,7 @@ $(document).ready(() => {
 		})
 	})
 	$("#kalman")
-		.val(settings.get("camera-view-kalman:" + gameName, .001))
+		.val(settings.get("camera-view-kalman:" + gameName, 0.001))
 		.on("change", () => {
 			settings.set("camera-view-kalman:" + gameName, $("#kalman").val());
 		});
