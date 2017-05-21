@@ -586,7 +586,7 @@ class JBMatch {
 	updatePossibleMoves(clear) {
 		var self = this;
 		if (!self.movesWin)
-			return;
+			return Promise.resolve();
 		return Promise.resolve()
 			.then(() => {
 				if (clear)
