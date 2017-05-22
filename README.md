@@ -15,6 +15,7 @@ Features
 - embedded artificial intelligence for all games
 - connecting to game engines via protocols UCI, CECP, HUB and DXP
 - navigation through played moves
+- possible moves preview
 - import/export standard book in PGN and PDN format
 - import/export board position in FEN format
 - clocked games
