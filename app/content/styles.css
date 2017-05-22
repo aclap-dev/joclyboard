@@ -611,5 +611,6 @@
 }
 
 .moves-content li:hover {
-	background-color: #dcdfe1;
+	background-color: #48f;
+	color: #fff;
 }
