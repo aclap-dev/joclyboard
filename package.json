@@ -45,7 +45,8 @@
 		"win": {
 			"target": [
 				"nsis"
-			]
+			],
+			"publisherName": "SARL ACLAP"
 		},
 		"nsis": {
 			"runAfterFinish": false,
