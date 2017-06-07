@@ -531,7 +531,8 @@ class JBMatch {
 				winOptions.persist = "history:" + self.gameName
 			utils.createWindowPromise(`file://${__dirname}/content/history.html?game=${self.gameName}&id=${self.id}`, {
 				width: 400,
-				height: 220
+				height: 220,
+				parent: self.boardWin
 			}, winOptions)
 				.then((window) => {
 					self.historyWin = window;
@@ -574,7 +575,8 @@ class JBMatch {
 			utils.createWindowPromise(`file://${__dirname}/content/moves.html?id=${self.id}`, {
 				width: 200,
 				minWidth: 150,
-				height: 350
+				height: 350,
+				parent: self.boardWin
 			}, winOptions)
 				.then((window) => {
 					self.movesWin = window;
@@ -631,7 +633,8 @@ class JBMatch {
 				width: 400,
 				height: 145,
 				minWidth: 100,
-				minHeight: 25
+				minHeight: 25,
+				parent: self.boardWin
 			}, winOptions)
 				.then((window) => {
 					self.clockWin = window;
@@ -1389,7 +1392,6 @@ controller.openBook = (gameName, fileName, data) => {
 		else
 			return "?";
 	}
-
 
 	utils.createWindowPromise(`file://${__dirname}/content/book.html?game=${gameName}&file=${encodeURIComponent(fileName)}`, {
 		width: 250,
