@@ -9,6 +9,4 @@ gulp.task("build-pjn-parser",()=>{
         .pipe(gulp.dest('./app/'));
 });
 
-
-
-
+gulp.task('default', ['build-pjn-parser']);
