@@ -51,6 +51,8 @@ exports.createWindow = function (url, style, options) {
 		style.y = winGeometry.y;
 	}
 
+  style.autoHideMenuBar = true;
+
 	var win = new electron.BrowserWindow(style);
 	win.setMenu(null);
 
