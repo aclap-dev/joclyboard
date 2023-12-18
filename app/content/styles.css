@@ -614,3 +614,13 @@
 	background-color: #48f;
 	color: #fff;
 }
+
+.topped-pane {
+  height: 100%; 
+  display: flex; 
+  flex-direction: column;
+}
+
+.topped-pane > ul {
+  overflow-y: auto; flex-grow: 1;
+}

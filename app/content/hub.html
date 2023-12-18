@@ -50,11 +50,13 @@
 				</div>
 
 				<div class="pane object-pane">
-					<ul class="pane list-group hidden" id="game-list">
-						<li class="list-group-header">
-							<input id="gamefilter" class="form-control" type="text" placeholder="Search game">
-						</li>
-					</ul>
+          <div id="game-list-pane" class="pane hidden topped-pane">
+            <div class="padded-more">
+              <input id="gamefilter" class="form-control" type="text" placeholder="Search game">
+            </div>
+            <ul class="pane list-group" id="game-list">
+            </ul>  
+          </div>
 					<ul class="pane list-group hidden" id="template-list">
 					</ul>
 					<ul class="pane list-group hidden" id="engine-list">
@@ -67,7 +69,6 @@
 						<p>Version <span class="appVersion"></span></p>
 						<p>The <a class="goto-joclyboard"><span class="appName"></span> project</a> is based on the <a class="goto-jocly">Jocly</a> 
 							board games Web library.</p>
-						<p>You can play those games against other users from the <a class="goto-jocly-com">jocly.com</a> web site.</p>
 						<p>Jocly and <span class="appName"></span> are released under <a class="goto-agpl-v3">AGPL v3.0</a> license.</p>
 						<p>Found a bug ? use the <a class="goto-issue">issue tracker</a>.</p>
 					</div>

@@ -346,19 +346,19 @@ function SetNav(which) {
 	$(".sidebar .nav-group-item").removeClass("active");
 	$("#nav-" + which).addClass("active");
 	settings.set("nav-last", which);
-	$(".object-pane .pane").hide();
+	$(".object-pane>.pane").hide();
 }
 
-$(document).ready(() => {
+$(() => {
 	$("#nav-games-all").on("click", function () {
 		SetNav("games-all");
-		$("#game-list").show();
+		$("#game-list-pane").show();
 		gameList = allGameList;
 		UpdateGameList();
 	});
 	$("#nav-games-fav").on("click", function () {
 		SetNav("games-fav");
-		$("#game-list").show();
+		$("#game-list-pane").show();
 		UpdateFavoriteGames();
 		gameList = favGameList;
 		UpdateGameList();
