@@ -24,7 +24,7 @@
  *    delete this exception statement from all source files in the program,
  *    then also delete it in the license file.
  */
-const electron = require('electron');
+const remote = require('@electron/remote');
 const os = require('os');
 
 exports.init = (title, header) => {
@@ -45,5 +45,5 @@ exports.init = (title, header) => {
 }
 
 exports.ready = () => {
-	electron.remote.getCurrentWebContents().emit("joclyboard-window-ready");
+	remote.getCurrentWebContents().emit("joclyboard-window-ready");
 }
