@@ -68,7 +68,7 @@
 		}
 	},
 	"scripts": {
-		"dist-linux": "node_modules/electron-builder/cli.js --linux --ia32 --x64",
+		"dist-linux": "node_modules/electron-builder/cli.js --linux --x64",
 		"dist-win": "node_modules/electron-builder/cli.js  --win --x64",
 		"dist-mac": "node_modules/electron-builder/cli.js --mac",
 		"start": "node_modules/electron/cli.js app || true",
