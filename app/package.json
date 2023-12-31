@@ -29,16 +29,17 @@
     "dxp"
   ],
   "dependencies": {
+    "@electron/remote": "^2.1.1",
     "byline": "^5.0.0",
-    "dialogs": "^1.1.19",
-    "electron-debug": "^1.1.0",
+    "dialogs": "^1.1.20",
+    "electron-debug": "^1.5.0",
     "electron-is-dev": "^0.1.2",
-    "electron-settings": "^3.0.14",
-    "electron-updater": "^1.14.2",
+    "electron-store": "^8.1.0",
+    "electron-updater": "^6.1.7",
     "ffmpeg-stream": "^0.5.0",
     "jocly": "^0.9.13",
-    "jquery": "^3.2.1",
-    "js-yaml": "^3.8.3",
+    "jquery": "^3.7.1",
+    "js-yaml": "^3.14.1",
     "mp4-mjpeg": "^0.0.2",
     "photonkit": "^0.1.2"
   },
