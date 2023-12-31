@@ -26,7 +26,7 @@
  */
 var electron = require('electron');
 var dialog = electron.remote.dialog;
-var settings = require('electron-settings');
+var settings = new (require('electron-store'))();
 var dialogs = require('dialogs')();
 var rpc = require('../rpc');
 var jbwu = require('./joclyboard-winutils');

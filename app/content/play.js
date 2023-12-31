@@ -24,7 +24,7 @@
  *    delete this exception statement from all source files in the program,
  *    then also delete it in the license file.
  */
-var settings = require('electron-settings');
+var settings = new (require('electron-store'))();
 var rpc = require("../rpc");
 var jbwu = require('./joclyboard-winutils');
 

@@ -25,7 +25,7 @@
  *    then also delete it in the license file.
  */
 var rpc = require('../rpc');
-var settings = require('electron-settings');
+var settings = new (require('electron-store'))();
 var jbwu = require('./joclyboard-winutils');
 
 var gameName = (function () {

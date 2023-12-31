@@ -25,7 +25,7 @@
  *    then also delete it in the license file.
  */
 const electron = require('electron');
-const settings = require('electron-settings');
+const settings = new (require('electron-store'))();
 const path = require('path');
 const Jocly = require("jocly");
 const mjpeg = require("mp4-mjpeg");
