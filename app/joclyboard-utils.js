@@ -25,7 +25,8 @@
  *    then also delete it in the license file.
  */
 const electron = require("electron");
-var settings = require("electron-settings");
+require('@electron/remote/main').initialize();
+var settings = new (require("electron-store"))();
 
 const defaultWindowStyle = {
 	width: 500,
@@ -53,7 +54,13 @@ exports.createWindow = function (url, style, options) {
 
   style.autoHideMenuBar = true;
 
+  style.webPreferences = {
+    nodeIntegration: true,
+    contextIsolation: false,
+  }
+
 	var win = new electron.BrowserWindow(style);
+  require('@electron/remote/main').enable(win.webContents);
 	win.setMenu(null);
 
 	var persistTimer = null;
