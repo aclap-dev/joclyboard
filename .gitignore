@@ -4,3 +4,5 @@ dist/
 .vscode/
 npm-debug.log
 private/
+._.DS_Store
+.DS_Store
