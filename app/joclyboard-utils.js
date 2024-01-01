@@ -52,7 +52,8 @@ exports.createWindow = function (url, style, options) {
 		style.y = winGeometry.y;
 	}
 
-  style.autoHideMenuBar = true;
+  style.frame = true;
+  style.titleBarStyle = "default";
 
   style.webPreferences = {
     nodeIntegration: true,
